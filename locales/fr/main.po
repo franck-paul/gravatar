@@ -1,0 +1,41 @@
+msgid "Gravatar"
+msgstr "Gravatar"
+
+msgid "Add Gravatar images to your posts and comments authors"
+msgstr "Affiche les images Gravatar des auteurs des billets et/ou des commentaires"
+
+msgid "The size must be between 1 and 512 pixels."
+msgstr "La taille doit être comprise entre 1 et 512 pixels."
+
+msgid "Default"
+msgstr "Par défaut"
+
+msgid "Activation"
+msgstr "Activation"
+
+msgid "Display Gravatars for posts:"
+msgstr "Affiche les Gravatars des billets :"
+
+msgid "Display Gravatars for comments:"
+msgstr "Affiche les Gravatars des commentaires :"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "Image size for post in pixels (1 to 512):"
+msgstr "Taille de l'image pour les billets en pixels (1 à 512) :"
+
+msgid "Image size for comment in pixels (1 to 512):"
+msgstr "Taille de l'image pour les commentaires en pixels (1 à 512) :"
+
+msgid "Default Gravatar imageset:"
+msgstr "Jeu d'images Gravatar par défaut :"
+
+msgid "Default Gravatar image"
+msgstr "Image Gravatar par défaut"
+
+msgid "Rating:"
+msgstr "Classement :"
+
+msgid "Gravatar images CSS style:"
+msgstr "Style CSS pour les images Gravatars :"

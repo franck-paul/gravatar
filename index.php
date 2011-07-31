@@ -112,9 +112,9 @@ echo
 '<fieldset><legend>'.__('Activation').'</legend>'.
 '<p class="field"><label for="gv_active">'.__('Active:').' '.
 form::checkbox('gv_active',1,$gv_active).'</label>'.'</p>'.
-'<p class="field"><label for="gv_on_post">'.__('Display gravatar for posts:').' '.
+'<p class="field"><label for="gv_on_post">'.__('Display Gravatars for posts:').' '.
 form::checkbox('gv_on_post',1,$gv_on_post).'</label>'.'</p>'.
-'<p class="field"><label for="gv_on_comment">'.__('Display gravatar for comments:').' '.
+'<p class="field"><label for="gv_on_comment">'.__('Display Gravatars for comments:').' '.
 form::checkbox('gv_on_comment',1,$gv_on_comment).'</label>'.'</p>'.
 '</fieldset>'.
 
@@ -127,16 +127,18 @@ form::field('gv_size_on_comment',3,3,$gv_size_on_comment).'</p>'.
 __('Default Gravatar imageset:').
 ' '.
 form::combo('gv_default',$gv_defaults,$gv_default).'</label>'.
-'<img src="'.$gv_url_test.'" alt="'.__('Default Gravatar image').'" />'.
+'<img src="'.$gv_url_test.'" alt="'.__('Default Gravatar image').'" '.
+//($gv_style != '' ? 'style="'.$gv_style.'"' : '').
+'/>'.
 '</p>'.
 '<p class="field"><label for="gv_rating">'.__('Rating:').' '.
 form::combo('gv_rating',$gv_ratings,$gv_rating).'</label>'.'</p>'.
-'<p class="area"><label>'.__('Gravatar image CSS style:').' '.
-form::textarea('gv_style',30,2,html::escapeHTML($gv_style)).
+'<p class="area"><label>'.__('Gravatar images CSS style:').' '.
+form::textarea('gv_style',30,8,html::escapeHTML($gv_style)).
 '</label></p>'.
 '</fieldset>'.
 
-'<p>'.$core->formNonce().'<input type="submit" value="'.__('save').'" /></p>'.
+'<p>'.$core->formNonce().'<input type="submit" value="'.__('Save').'" /></p>'.
 '</form>';
 
 ?>
