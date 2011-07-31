@@ -33,8 +33,7 @@ class behaviorGravatar
 		global $core, $_ctx;
 		
 		$email = trim($from_post ? $_ctx->posts->getAuthorEmail(false) : $_ctx->comments->getAuthorEmail(false));
-		$email = ($email == '' ? 'example@example.com' : $email);
-		$email = md5(strtolower($email));
+		$email = ($email == '' ? '00000000000000000000000000000000' : md5(strtolower($email));
 		
 		$url = 'http://www.gravatar.com/avatar/'.$email;
 

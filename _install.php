@@ -25,8 +25,8 @@ try
 	$core->blog->settings->gravatar->put('on_post',false,'boolean','Show post author Gravatar',false,true);
 	$core->blog->settings->gravatar->put('on_comment',true,'boolean','Show comment author Gravatar',false,true);
 	$core->blog->settings->gravatar->put('size_on_post',0,'integer','Gravatar size for post author',false,true);
-	$core->blog->settings->gravatar->put('size_on_comment',40,'integer','Gravatar size for comment author',false,true);
-	$core->blog->settings->gravatar->put('default','mm','string','Gravatar default imageset',false,true);
+	$core->blog->settings->gravatar->put('size_on_comment',0,'integer','Gravatar size for comment author',false,true);
+	$core->blog->settings->gravatar->put('default','','string','Gravatar default imageset',false,true);
 	$core->blog->settings->gravatar->put('rating','','string','Gravatar minimum rating',false,true);
 
 	$core->setVersion('Gravatar',$new_version);
