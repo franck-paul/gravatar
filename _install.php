@@ -12,8 +12,8 @@
 
 if (!defined('DC_CONTEXT_ADMIN')){return;}
 
-$new_version = $core->plugins->moduleInfo('Gravatar','version');
-$old_version = $core->getVersion('Gravatar');
+$new_version = $core->plugins->moduleInfo('gravatar','version');
+$old_version = $core->getVersion('gravatar');
 
 if (version_compare($old_version,$new_version,'>=')) return;
 
@@ -27,8 +27,9 @@ try
 	$core->blog->settings->gravatar->put('size_on_comment',0,'integer','Gravatar size for comment author',false,true);
 	$core->blog->settings->gravatar->put('default','','string','Gravatar default imageset',false,true);
 	$core->blog->settings->gravatar->put('rating','','string','Gravatar minimum rating',false,true);
+	$core->blog->settings->gravatar->put('style','','string','Gravatar image style',false,true);
 
-	$core->setVersion('Gravatar',$new_version);
+	$core->setVersion('gravatar',$new_version);
 	
 	return true;
 }
