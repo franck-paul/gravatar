@@ -138,6 +138,8 @@ form::textarea('gv_style',30,8,html::escapeHTML($gv_style)).
 '</label></p>'.
 '</fieldset>'.
 
+'<p class="form-note">'.__('See <a href="http://en.gravatar.com/">Gravatar web site</a> for more information.').'</p>'.
+
 '<p>'.$core->formNonce().'<input type="submit" value="'.__('Save').'" /></p>'.
 '</form>';
 

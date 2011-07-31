@@ -39,3 +39,6 @@ msgstr "Classement :"
 
 msgid "Gravatar images CSS style:"
 msgstr "Style CSS pour les images Gravatars :"
+
+msgid "See <a href=\"http://en.gravatar.com/\">Gravatar web site</a> for more information."
+msgstr "Voir <a href=\"http://fr.gravatar.com/\">le site web Gravatar</a> pour plus d'information."
