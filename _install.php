@@ -20,7 +20,6 @@ if (version_compare($old_version,$new_version,'>=')) return;
 try
 {
 	$core->blog->settings->addNamespace('gravatar');
-
 	$core->blog->settings->gravatar->put('active',false,'boolean','Active',false,true);
 	$core->blog->settings->gravatar->put('on_post',false,'boolean','Show post author Gravatar',false,true);
 	$core->blog->settings->gravatar->put('on_comment',true,'boolean','Show comment author Gravatar',false,true);
