@@ -13,11 +13,14 @@ msgstr "Par défaut"
 msgid "Activation"
 msgstr "Activation"
 
-msgid "Display Gravatars for posts:"
-msgstr "Affiche les Gravatars des billets :"
+msgid "Active:"
+msgstr "Activé :"
 
-msgid "Display Gravatars for comments:"
-msgstr "Affiche les Gravatars des commentaires :"
+msgid "Automatically insert Gravatars for posts:"
+msgstr "Insère automatiquement les Gravatars des billets :"
+
+msgid "Automatically insert Gravatars for comments:"
+msgstr "Insère automatiquement les Gravatars des commentaires :"
 
 msgid "Options"
 msgstr "Options"

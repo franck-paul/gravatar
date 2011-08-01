@@ -112,9 +112,9 @@ echo
 '<fieldset><legend>'.__('Activation').'</legend>'.
 '<p class="field"><label for="gv_active">'.__('Active:').' '.
 form::checkbox('gv_active',1,$gv_active).'</label>'.'</p>'.
-'<p class="field"><label for="gv_on_post">'.__('Display Gravatars for posts:').' '.
+'<p class="field"><label for="gv_on_post">'.__('Automatically insert Gravatars for posts:').' '.
 form::checkbox('gv_on_post',1,$gv_on_post).'</label>'.'</p>'.
-'<p class="field"><label for="gv_on_comment">'.__('Display Gravatars for comments:').' '.
+'<p class="field"><label for="gv_on_comment">'.__('Automatically insert Gravatars for comments:').' '.
 form::checkbox('gv_on_comment',1,$gv_on_comment).'</label>'.'</p>'.
 '</fieldset>'.
 
