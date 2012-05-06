@@ -3,7 +3,7 @@
 #
 # This file is part of Dotclear 2.
 #
-# Copyright (c) 2003-2011 Franck Paul
+# Copyright (c) 2003-2012 Franck Paul
 # Licensed under the GPL version 2.0 license.
 # See LICENSE file or
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -11,11 +11,38 @@
 # -- END LICENSE BLOCK -----------------------------------------
 if (!defined('DC_RC_PATH')) { return; }
 
-$core->addBehavior('templateAfterValue',array('behaviorGravatar','getGravatarURL'));
-$core->addBehavior('publicHeadContent',array('behaviorGravatar','publicHeadContent'));
+$core->addBehavior('templateAfterValue',array('dcGravatar','getGravatarURL'));
+$core->addBehavior('publicHeadContent',array('dcGravatar','publicHeadContent'));
 
-class behaviorGravatar
+$core->tpl->addValue('EntryAuthorGravatar',array('dcGravatar','EntryAuthorGravatar'));
+$core->tpl->addValue('CommentAuthorGravatar',array('dcGravatar','CommentAuthorGravatar'));
+
+class dcGravatar
 {
+	// Templates
+
+	public static function EntryAuthorGravatar($attr)
+	{
+		global $core;
+		
+		$ret = '';
+		if ($core->blog->settings->gravatar->active) {
+			$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(true); ?>'.'" alt="" class="gravatar" />';
+		}
+		return $ret;
+	}
+
+	public static function CommentAuthorGravatar($attr)
+	{
+		global $core;
+
+		$ret = '';
+		if ($core->blog->settings->gravatar->active) {
+			$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(false); ?>'.'" alt="" class="gravatar" />';
+		}
+		return $ret;
+	}
+
 	// Behaviours
 
 	public static function getGravatarURL($core,$v,$attr)
@@ -23,9 +50,9 @@ class behaviorGravatar
 		$ret = '';
 		if ($core->blog->settings->gravatar->active) {
 			if (($v == 'EntryAuthorLink') && ($core->blog->settings->gravatar->on_post)) {
-				$ret = ' <img src="'.'<?php echo behaviorGravatar::gravatarHelper(true); ?>'.'" alt="" class="gravatar" />';
+				$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(true); ?>'.'" alt="" class="gravatar" />';
 			} elseif (($v == 'CommentAuthorLink') && ($core->blog->settings->gravatar->on_comment)) {
-				$ret = ' <img src="'.'<?php echo behaviorGravatar::gravatarHelper(false); ?>'.'" alt="" class="gravatar" />';
+				$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(false); ?>'.'" alt="" class="gravatar" />';
 			}
 		}
 		return $ret;
@@ -33,8 +60,7 @@ class behaviorGravatar
 	
 	public static function publicHeadContent($core)
 	{
-		if (($core->blog->settings->gravatar->active) && 
-			(($core->blog->settings->gravatar->on_post) || ($core->blog->settings->gravatar->on_comment))) {
+		if ($core->blog->settings->gravatar->active) {
 			echo '<style type="text/css">'."\n".self::gravatarStyle()."</style>\n";
 		}
 	}
