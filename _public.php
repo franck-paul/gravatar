@@ -106,7 +106,7 @@ class dcGravatar
 			$query = '?'.substr($query,1);
 		}
 
-		return $url.$query;
+		return html::escapeURL($url.$query);
 	}
 }
 ?>
