@@ -12,8 +12,8 @@
 if (!defined('DC_RC_PATH')) { return; }
 
 $this->registerModule(
-	/* Name */				__("Gravatar"),
-	/* Description*/		__("Add Gravatar images to your posts and comments authors"),
+	/* Name */			"Gravatar",
+	/* Description*/		"Add Gravatar images to your posts and comments authors",
 	/* Author */			"Franck Paul",
 	/* Version */			'0.2.1'
 );
