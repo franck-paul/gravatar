@@ -104,7 +104,7 @@ if ($gv_default != '') {
 echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; '.__('Gravatar').'</h2>';
 
 if (!empty($_GET['upd'])) {
-	echo '<p class="message">'.__('Settings have been successfully updated.').'</p>';
+	dcPage::message(__('Settings have been successfully updated.'));
 }
 
 echo
