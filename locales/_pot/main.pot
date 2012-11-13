@@ -1,0 +1,114 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Dotclear 2 gravatar module\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-05 17:15+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../hg-plugins/gravatar/_admin.php:14 ../hg-plugins/gravatar/_define.php:15
+#: ../hg-plugins/gravatar/index.php:99 ../hg-plugins/gravatar/index.php:104
+msgid "Gravatar"
+msgstr ""
+
+#: ../hg-plugins/gravatar/_define.php:16
+msgid "Add Gravatar images to your posts and comments authors"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:46 ../hg-plugins/gravatar/index.php:49
+msgid "The size must be between 1 and 512 pixels."
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:76
+msgid "mm"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:77
+msgid "identicon"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:78
+msgid "monsterid"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:79
+msgid "wavatar"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:80
+msgid "retro"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:85
+msgid "G"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:86
+msgid "PG"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:87
+msgid "R"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:88
+msgid "X"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:112
+msgid "Activation"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:113
+msgid "Active:"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:115
+msgid "Automatically insert Gravatars for posts:"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:117
+msgid "Automatically insert Gravatars for comments:"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:121
+msgid "Options"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:122
+msgid "Image size for post in pixels (1 to 512):"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:124
+msgid "Image size for comment in pixels (1 to 512):"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:127
+msgid "Default Gravatar imageset:"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:130
+msgid "Default Gravatar image"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:134
+msgid "Rating:"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:136
+msgid "Gravatar images CSS style:"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:141
+msgid "See <a href=\"http://en.gravatar.com/\">Gravatar web site</a> for more information."
+msgstr ""
