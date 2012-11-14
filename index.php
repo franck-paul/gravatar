@@ -110,12 +110,12 @@ if (!empty($_GET['upd'])) {
 echo
 '<form action="'.$p_url.'" method="post">'.
 '<fieldset><legend>'.__('Activation').'</legend>'.
-'<p class="field"><label for="gv_active">'.__('Active:').' '.
-form::checkbox('gv_active',1,$gv_active).'</label>'.'</p>'.
-'<p class="field"><label for="gv_on_post">'.__('Automatically insert Gravatars for posts:').' '.
-form::checkbox('gv_on_post',1,$gv_on_post).'</label>'.'</p>'.
-'<p class="field"><label for="gv_on_comment">'.__('Automatically insert Gravatars for comments:').' '.
-form::checkbox('gv_on_comment',1,$gv_on_comment).'</label>'.'</p>'.
+'<p class="field"><label for="gv_active">'.__('Active:').'</label> '.
+form::checkbox('gv_active',1,$gv_active).'</p>'.
+'<p class="field"><label for="gv_on_post">'.__('Automatically insert Gravatars for posts:').'</label> '.
+form::checkbox('gv_on_post',1,$gv_on_post).'</p>'.
+'<p class="field"><label for="gv_on_comment">'.__('Automatically insert Gravatars for comments:').'</label> '.
+form::checkbox('gv_on_comment',1,$gv_on_comment).'</p>'.
 '</fieldset>'.
 
 '<fieldset><legend>'.__('Options').'</legend>'.
@@ -123,19 +123,17 @@ form::checkbox('gv_on_comment',1,$gv_on_comment).'</label>'.'</p>'.
 form::field('gv_size_on_post',3,3,$gv_size_on_post).'</p>'.
 '<p class="field"><label for="gv_size_on_comment">'.__('Image size for comment in pixels (1 to 512):').'</label> '.
 form::field('gv_size_on_comment',3,3,$gv_size_on_comment).'</p>'.
-'<p class="field"><label for="gv_default">'.
-__('Default Gravatar imageset:').
-' '.
-form::combo('gv_default',$gv_defaults,$gv_default).'</label>'.
+'<p class="field"><label for="gv_default">'.__('Default Gravatar imageset:').'</label> '.
+form::combo('gv_default',$gv_defaults,$gv_default).''.
 '<img src="'.$gv_url_test.'" alt="'.__('Default Gravatar image').'" '.
 //($gv_style != '' ? 'style="'.$gv_style.'"' : '').
 '/>'.
 '</p>'.
-'<p class="field"><label for="gv_rating">'.__('Rating:').' '.
-form::combo('gv_rating',$gv_ratings,$gv_rating).'</label>'.'</p>'.
-'<p class="area"><label>'.__('Gravatar images CSS style:').' '.
+'<p class="field"><label for="gv_rating">'.__('Rating:').'</label> '.
+form::combo('gv_rating',$gv_ratings,$gv_rating).'</p>'.
+'<p class="area"><label>'.__('Gravatar images CSS style:').'</label> '.
 form::textarea('gv_style',30,8,html::escapeHTML($gv_style)).
-'</label></p>'.
+'</p>'.
 '</fieldset>'.
 
 '<p class="form-note">'.__('See <a href="http://en.gravatar.com/">Gravatar web site</a> for more information.').'</p>'.
