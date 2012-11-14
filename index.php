@@ -131,7 +131,7 @@ form::combo('gv_default',$gv_defaults,$gv_default).''.
 '</p>'.
 '<p class="field"><label for="gv_rating">'.__('Rating:').'</label> '.
 form::combo('gv_rating',$gv_ratings,$gv_rating).'</p>'.
-'<p class="area"><label>'.__('Gravatar images CSS style:').'</label> '.
+'<p class="area"><label for="gv_style">'.__('Gravatar images CSS style:').'</label> '.
 form::textarea('gv_style',30,8,html::escapeHTML($gv_style)).
 '</p>'.
 '</fieldset>'.
