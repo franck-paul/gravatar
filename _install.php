@@ -30,7 +30,7 @@ try
 	$core->blog->settings->gravatar->put('style','','string','Gravatar image style',false,true);
 
 	$core->setVersion('gravatar',$new_version);
-	
+
 	return true;
 }
 catch (Exception $e)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 gravatar module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-05 17:15+0100\n"
+"POT-Creation-Date: 2013-09-18 18:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,13 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hg-plugins/gravatar/_admin.php:14 ../hg-plugins/gravatar/_define.php:15
-#: ../hg-plugins/gravatar/index.php:99 ../hg-plugins/gravatar/index.php:104
+#: ../hg-plugins/gravatar/_admin.php:14 ../hg-plugins/gravatar/index.php:99
+#: ../hg-plugins/gravatar/index.php:107
 msgid "Gravatar"
-msgstr ""
-
-#: ../hg-plugins/gravatar/_define.php:16
-msgid "Add Gravatar images to your posts and comments authors"
 msgstr ""
 
 #: ../hg-plugins/gravatar/index.php:46 ../hg-plugins/gravatar/index.php:49
@@ -65,50 +61,46 @@ msgstr ""
 msgid "X"
 msgstr ""
 
-#: ../hg-plugins/gravatar/index.php:112
-msgid "Activation"
-msgstr ""
-
-#: ../hg-plugins/gravatar/index.php:113
-msgid "Active:"
-msgstr ""
-
-#: ../hg-plugins/gravatar/index.php:115
-msgid "Automatically insert Gravatars for posts:"
-msgstr ""
-
 #: ../hg-plugins/gravatar/index.php:117
-msgid "Automatically insert Gravatars for comments:"
-msgstr ""
-
-#: ../hg-plugins/gravatar/index.php:121
-msgid "Options"
+msgid "Active Gravatars"
 msgstr ""
 
 #: ../hg-plugins/gravatar/index.php:122
-msgid "Image size for post in pixels (1 to 512):"
+msgid "Automatically insert Gravatars for posts"
 msgstr ""
 
 #: ../hg-plugins/gravatar/index.php:124
-msgid "Image size for comment in pixels (1 to 512):"
+msgid "Automatically insert Gravatars for comments"
 msgstr ""
 
-#: ../hg-plugins/gravatar/index.php:127
-msgid "Default Gravatar imageset:"
+#: ../hg-plugins/gravatar/index.php:126
+msgid "Advanced options"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:128
+msgid "Image size for post in pixels (1 to 512):"
 msgstr ""
 
 #: ../hg-plugins/gravatar/index.php:130
+msgid "Image size for comment in pixels (1 to 512):"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:132
+msgid "Default Gravatar imageset:"
+msgstr ""
+
+#: ../hg-plugins/gravatar/index.php:135
 msgid "Default Gravatar image"
 msgstr ""
 
-#: ../hg-plugins/gravatar/index.php:134
+#: ../hg-plugins/gravatar/index.php:139
 msgid "Rating:"
 msgstr ""
 
-#: ../hg-plugins/gravatar/index.php:136
+#: ../hg-plugins/gravatar/index.php:141
 msgid "Gravatar images CSS style:"
 msgstr ""
 
-#: ../hg-plugins/gravatar/index.php:141
+#: ../hg-plugins/gravatar/index.php:145
 msgid "See <a href=\"http://en.gravatar.com/\">Gravatar web site</a> for more information."
 msgstr ""

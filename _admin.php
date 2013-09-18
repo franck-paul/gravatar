@@ -11,8 +11,7 @@
 # -- END LICENSE BLOCK ------------------------------------
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
-$_menu['Plugins']->addItem(__('Gravatar'),'plugin.php?p=gravatar','index.php?pf=gravatar/icon.png',
+$_menu['Blog']->addItem(__('Gravatar'),'plugin.php?p=gravatar','index.php?pf=gravatar/icon.png',
 		preg_match('/plugin.php\?p=gravatar(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('admin',$core->blog->id));
-
 ?>

@@ -32,7 +32,7 @@ if (!empty($_POST))
 		} elseif ($gv_on_comment = (boolean) $_POST['gv_on_comment']) {
 			$new_cache = true;
 		}
-		
+
 		$gv_active = (boolean) $_POST['gv_active'];
 		$gv_on_post = (boolean) $_POST['gv_on_post'];
 		$gv_on_comment = (boolean) $_POST['gv_on_comment'];
@@ -41,7 +41,7 @@ if (!empty($_POST))
 		$gv_default = $_POST['gv_default'];
 		$gv_rating = $_POST['gv_rating'];
 		$gv_style = trim($_POST['gv_style']);
-		
+
 		if (($gv_size_on_post < 0) || ($gv_size_on_post > 512)) {
 			throw new Exception(__('The size must be between 1 and 512 pixels.'));
 		}
@@ -59,10 +59,10 @@ if (!empty($_POST))
 		$core->blog->settings->gravatar->put('default',$gv_default);
 		$core->blog->settings->gravatar->put('rating',$gv_rating);
 		$core->blog->settings->gravatar->put('style',$gv_style);
-		
+
 		if ($new_cache) $core->emptyTemplatesCache();
 		$core->blog->triggerBlog();
-		
+
 		http::redirect($p_url.'&upd=1');
 	}
 	catch (Exception $e)
@@ -101,40 +101,46 @@ if ($gv_default != '') {
 
 <body>
 <?php
-echo '<h2>'.html::escapeHTML($core->blog->name).' &rsaquo; <span class="page-title">'.__('Gravatar').'</span></h2>';
+echo dcPage::breadcrumb(
+	array(
+		html::escapeHTML($core->blog->name) => '',
+		'<span class="page-title">'.__('Gravatar').'</span>' => ''
+	));
 
 if (!empty($_GET['upd'])) {
-	dcPage::message(__('Settings have been successfully updated.'));
+	dcPage::success(__('Settings have been successfully updated.'));
 }
 
 echo
 '<form action="'.$p_url.'" method="post">'.
-'<fieldset><legend>'.__('Activation').'</legend>'.
-'<p class="field"><label for="gv_active">'.__('Active:').'</label> '.
-form::checkbox('gv_active',1,$gv_active).'</p>'.
-'<p class="field"><label for="gv_on_post">'.__('Automatically insert Gravatars for posts:').'</label> '.
-form::checkbox('gv_on_post',1,$gv_on_post).'</p>'.
-'<p class="field"><label for="gv_on_comment">'.__('Automatically insert Gravatars for comments:').'</label> '.
-form::checkbox('gv_on_comment',1,$gv_on_comment).'</p>'.
-'</fieldset>'.
+'<p>'.form::checkbox('gv_active',1,$gv_active).' '.
+'<label for="gv_active" class="classic">'.__('Active Gravatars').'</label></p>'.
 
-'<fieldset><legend>'.__('Options').'</legend>'.
-'<p class="field"><label for="gv_size_on_post">'.__('Image size for post in pixels (1 to 512):').'</label> '.
+'<h3>'.__('Options').'</h3>'.
+
+'<p>'.form::checkbox('gv_on_post',1,$gv_on_post).' '.
+'<label for="gv_on_post" class="classic">'.__('Automatically insert Gravatars for posts').'</label></p>'.
+'<p>'.form::checkbox('gv_on_comment',1,$gv_on_comment).' '.
+'<label for="gv_on_comment" class="classic">'.__('Automatically insert Gravatars for comments').'</label></p>'.
+
+'<h3>'.__('Advanced options').'</h3>'.
+
+'<p><label for="gv_size_on_post" class="classic">'.__('Image size for post in pixels (1 to 512):').'</label> '.
 form::field('gv_size_on_post',3,3,$gv_size_on_post).'</p>'.
-'<p class="field"><label for="gv_size_on_comment">'.__('Image size for comment in pixels (1 to 512):').'</label> '.
+'<p><label for="gv_size_on_comment" class="classic">'.__('Image size for comment in pixels (1 to 512):').'</label> '.
 form::field('gv_size_on_comment',3,3,$gv_size_on_comment).'</p>'.
-'<p class="field"><label for="gv_default">'.__('Default Gravatar imageset:').'</label> '.
+'<p><label for="gv_default" class="classic">'.__('Default Gravatar imageset:').'</label> '.
 form::combo('gv_default',$gv_defaults,$gv_default).''.
+'</p><p>'.
 '<img src="'.$gv_url_test.'" alt="'.__('Default Gravatar image').'" '.
 //($gv_style != '' ? 'style="'.$gv_style.'"' : '').
 '/>'.
 '</p>'.
-'<p class="field"><label for="gv_rating">'.__('Rating:').'</label> '.
+'<p><label for="gv_rating" class="classic">'.__('Rating:').'</label> '.
 form::combo('gv_rating',$gv_ratings,$gv_rating).'</p>'.
 '<p class="area"><label for="gv_style">'.__('Gravatar images CSS style:').'</label> '.
 form::textarea('gv_style',30,8,html::escapeHTML($gv_style)).
 '</p>'.
-'</fieldset>'.
 
 '<p class="form-note">'.__('See <a href="http://en.gravatar.com/">Gravatar web site</a> for more information.').'</p>'.
 

@@ -24,7 +24,7 @@ class dcGravatar
 	public static function EntryAuthorGravatar($attr)
 	{
 		global $core;
-		
+
 		$ret = '';
 		if ($core->blog->settings->gravatar->active) {
 			$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(true); ?>'.'" alt="" class="gravatar" />';
@@ -57,7 +57,7 @@ class dcGravatar
 		}
 		return $ret;
 	}
-	
+
 	public static function publicHeadContent($core)
 	{
 		if ($core->blog->settings->gravatar->active) {
@@ -66,7 +66,7 @@ class dcGravatar
 	}
 
 	// Helpers
-	
+
 	public static function gravatarStyle()
 	{
 		$s = $GLOBALS['core']->blog->settings->gravatar->style;
@@ -82,11 +82,11 @@ class dcGravatar
 	public static function gravatarHelper($from_post)
 	{
 		global $core, $_ctx;
-		
+
 		$email = $from_post ? $_ctx->posts->getAuthorEmail(false) : $_ctx->comments->getEmail(false);
 		$email = trim($email);
 		$email = ($email == '' ? '00000000000000000000000000000000' : md5(strtolower($email)));
-		
+
 		$url = 'http://www.gravatar.com/avatar/'.$email;
 
 		$query = '';
