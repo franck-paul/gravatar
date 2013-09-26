@@ -18,4 +18,3 @@ __('Gravatar').__('Add Gravatar images to your posts and comments authors');
 $_menu['Blog']->addItem(__('Gravatar'),'plugin.php?p=gravatar','index.php?pf=gravatar/icon.png',
 		preg_match('/plugin.php\?p=gravatar(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('admin',$core->blog->id));
-?>

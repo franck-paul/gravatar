@@ -110,4 +110,3 @@ class dcGravatar
 		return html::escapeURL($url.$query);
 	}
 }
-?>
