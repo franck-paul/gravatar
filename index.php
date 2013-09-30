@@ -106,7 +106,7 @@ if ($gv_default != '') {
 echo dcPage::breadcrumb(
 	array(
 		html::escapeHTML($core->blog->name) => '',
-		'<span class="page-title">'.__('Gravatar').'</span>' => ''
+		__('Gravatar') => ''
 	));
 
 if (!empty($_GET['upd'])) {
