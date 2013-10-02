@@ -65,7 +65,8 @@ if (!empty($_POST))
 		if ($new_cache) $core->emptyTemplatesCache();
 		$core->blog->triggerBlog();
 
-		http::redirect($p_url.'&upd=1');
+		dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
+		http::redirect($p_url);
 	}
 	catch (Exception $e)
 	{
@@ -108,10 +109,7 @@ echo dcPage::breadcrumb(
 		html::escapeHTML($core->blog->name) => '',
 		__('Gravatar') => ''
 	));
-
-if (!empty($_GET['upd'])) {
-	dcPage::success(__('Settings have been successfully updated.'));
-}
+echo dcPage::notices();
 
 echo
 '<form action="'.$p_url.'" method="post">'.
