@@ -16,5 +16,9 @@ $this->registerModule(
 	/* Name */			"Gravatar",
 	/* Description*/		"Add Gravatar images to your posts and comments authors",
 	/* Author */			"Franck Paul",
-	/* Version */			'0.4'
+	/* Version */			'0.4',
+	array(
+		/* Permissions */	'permissions' =>	'admin',
+		/* Type */			'type' =>			'plugin'
+	)
 );
