@@ -13,6 +13,26 @@
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
 $core->blog->settings->addNamespace('gravatar');
+if (is_null($core->blog->settings->gravatar->active)) {
+	try {
+		// Add default settings values if necessary
+		$core->blog->settings->gravatar->put('active',false,'boolean','Active',false);
+		$core->blog->settings->gravatar->put('on_post',false,'boolean','Show post author Gravatar',false);
+		$core->blog->settings->gravatar->put('on_comment',true,'boolean','Show comment author Gravatar',false);
+		$core->blog->settings->gravatar->put('size_on_post',0,'integer','Gravatar size for post author',false);
+		$core->blog->settings->gravatar->put('size_on_comment',0,'integer','Gravatar size for comment author',false);
+		$core->blog->settings->gravatar->put('default','','string','Gravatar default imageset',false);
+		$core->blog->settings->gravatar->put('rating','','string','Gravatar minimum rating',false);
+		$core->blog->settings->gravatar->put('style','','string','Gravatar image style',false);
+
+		$core->blog->triggerBlog();
+		http::redirect($p_url);
+	}
+	catch (Exception $e) {
+		$core->error->add($e->getMessage());
+	}
+}
+
 $gv_active = (boolean) $core->blog->settings->gravatar->active;
 $gv_on_post = (boolean) $core->blog->settings->gravatar->on_post;
 $gv_on_comment = (boolean) $core->blog->settings->gravatar->on_comment;
@@ -27,11 +47,11 @@ if (!empty($_POST))
 	try
 	{
 		$new_cache = false;
-		if ($gv_active != (boolean) $_POST['gv_active']) {
+		if ((isset($_POST['gv_active'])) && ($gv_active != (boolean) $_POST['gv_active'])) {
 			$new_cache = true;
-		} elseif ($gv_on_post != (boolean) $_POST['gv_on_post']) {
+		} elseif ((isset($_POST['gv_on_post'])) && ($gv_on_post != (boolean) $_POST['gv_on_post'])) {
 			$new_cache = true;
-		} elseif ($gv_on_comment = (boolean) $_POST['gv_on_comment']) {
+		} elseif ((isset($_POST['gv_on_comment'])) && ($gv_on_comment = (boolean) $_POST['gv_on_comment'])) {
 			$new_cache = true;
 		}
 
