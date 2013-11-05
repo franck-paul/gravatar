@@ -55,9 +55,9 @@ if (!empty($_POST))
 			$new_cache = true;
 		}
 
-		$gv_active = (boolean) $_POST['gv_active'];
-		$gv_on_post = (boolean) $_POST['gv_on_post'];
-		$gv_on_comment = (boolean) $_POST['gv_on_comment'];
+		$gv_active = !empty($_POST['gv_active']);
+		$gv_on_post = !empty($_POST['gv_on_post']);
+		$gv_on_comment = !empty($_POST['gv_on_comment']);
 		$gv_size_on_post = (integer) $_POST['gv_size_on_post'];
 		$gv_size_on_comment = (integer) $_POST['gv_size_on_comment'];
 		$gv_default = $_POST['gv_default'];
