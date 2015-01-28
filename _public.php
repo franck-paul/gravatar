@@ -28,7 +28,8 @@ class dcGravatar
 
 		$ret = '';
 		if ($core->blog->settings->gravatar->active) {
-			$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(true); ?>'.'" alt="" class="gravatar" />';
+			$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(true); ?>'.'" '.
+			'<?php echo dcGravatar::gravatarSizeHelper(true) ?> alt="" class="gravatar" />';
 		}
 		return $ret;
 	}
@@ -39,7 +40,8 @@ class dcGravatar
 
 		$ret = '';
 		if ($core->blog->settings->gravatar->active) {
-			$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(false); ?>'.'" alt="" class="gravatar" />';
+			$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(false); ?>'.'" '.
+			'<?php echo dcGravatar::gravatarSizeHelper(false) ?> alt="" class="gravatar" />';
 		}
 		return $ret;
 	}
@@ -51,9 +53,11 @@ class dcGravatar
 		$ret = '';
 		if ($core->blog->settings->gravatar->active) {
 			if (($v == 'EntryAuthorLink') && ($core->blog->settings->gravatar->on_post)) {
-				$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(true); ?>'.'" alt="" class="gravatar" />';
+				$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(true); ?>'.'" '.
+				'<?php echo dcGravatar::gravatarSizeHelper(true) ?> alt="" class="gravatar" />';
 			} elseif (($v == 'CommentAuthorLink') && ($core->blog->settings->gravatar->on_comment)) {
-				$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(false); ?>'.'" alt="" class="gravatar" />';
+				$ret = ' <img src="'.'<?php echo dcGravatar::gravatarHelper(false); ?>'.'" '.
+				'<?php echo dcGravatar::gravatarSizeHelper(false) ?> alt="" class="gravatar" />';
 			}
 		}
 		return $ret;
@@ -78,6 +82,20 @@ class dcGravatar
 			'.gravatar {'."\n".
 			'	'.$s."\n".
 			'}'."\n";
+	}
+
+	public static function gravatarSizeHelper($from_post)
+	{
+		global $core;
+
+		$size = 80;
+		if ($from_post && $core->blog->settings->gravatar->size_on_post != 0) {
+			$size = $core->blog->settings->gravatar->size_on_post;
+		} elseif(!$from_post && $core->blog->settings->gravatar->size_on_comment != 0) {
+			$size = $core->blog->settings->gravatar->size_on_comment;
+		}
+
+		return sprintf('width="%1$s" height="%1$s"',$size);
 	}
 
 	public static function gravatarHelper($from_post)
