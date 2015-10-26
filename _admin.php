@@ -15,6 +15,8 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 // dead but useful code, in order to have translations
 __('Gravatar').__('Add Gravatar images to your posts and comments authors');
 
-$_menu['Blog']->addItem(__('Gravatar'),'plugin.php?p=gravatar','index.php?pf=gravatar/icon.png',
+$_menu['Blog']->addItem(__('Gravatar'),
+		'plugin.php?p=gravatar',
+		urldecode(dcPage::getPF('gravatar/icon.png')),
 		preg_match('/plugin.php\?p=gravatar(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('admin',$core->blog->id));
