@@ -111,7 +111,7 @@ $gv_ratings = array(
 	__('X') => 'x'
 );
 
-$gv_url_test = 'http://www.gravatar.com/avatar/00000000000000000000000000000000?f=y';
+$gv_url_test = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?f=y';
 if ($gv_default != '') {
 	$gv_url_test .= '&d='.$gv_default;
 }
@@ -162,7 +162,7 @@ form::combo('gv_rating',$gv_ratings,$gv_rating).'</p>'.
 form::textarea('gv_style',30,8,html::escapeHTML($gv_style)).
 '</p>'.
 
-'<p class="form-note">'.__('See <a href="http://en.gravatar.com/">Gravatar web site</a> for more information.').'</p>'.
+'<p class="form-note">'.__('See <a href="https://en.gravatar.com/">Gravatar web site</a> for more information.').'</p>'.
 
 '<p>'.$core->formNonce().'<input type="submit" value="'.__('Save').'" /></p>'.
 '</form>';

@@ -106,7 +106,7 @@ class dcGravatar
 		$email = trim($email);
 		$email = ($email == '' ? '00000000000000000000000000000000' : md5(strtolower($email)));
 
-		$url = 'http://www.gravatar.com/avatar/'.$email;
+		$url = 'https://www.gravatar.com/avatar/'.$email;
 
 		$query = '';
 		if (($from_post) && ($core->blog->settings->gravatar->size_on_post != 0)) {
