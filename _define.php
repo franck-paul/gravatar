@@ -10,15 +10,16 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
 
-if (!defined('DC_RC_PATH')) { return; }
+if (!defined('DC_RC_PATH')) {return;}
 
 $this->registerModule(
-	/* Name */			"Gravatar",
-	/* Description*/		"Add Gravatar images to your posts and comments authors",
-	/* Author */			"Franck Paul",
-	/* Version */			'0.6',
-	array(
-		/* Permissions */	'permissions' =>	'admin',
-		/* Type */			'type' =>			'plugin'
-		)
+    "Gravatar",                                                          // Name
+    "Add Gravatar/Libravatar images to your posts and comments authors", // Description
+    "Franck Paul",                                                       // Author
+    '0.7',                                                               // Version
+    array(
+        'permissions' => 'admin',  // Permissions
+        'type'        => 'plugin', // Type
+        'settings'    => array(    // Settings
+        ))
 );
