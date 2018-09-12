@@ -16,7 +16,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {return;}
 // dead but useful code, in order to have translations
 __('Gravatar') . __('Add Gravatar/Libravatar images to your posts and comments authors');
 
-$core->addBehavior('adminPageHTTPHeaderCSP', array('gravatarBehaviors', 'adminPageHTTPHeaderCSP'));
+$core->addBehavior('adminPageHTTPHeaderCSP', ['gravatarBehaviors', 'adminPageHTTPHeaderCSP']);
 
 $_menu['Blog']->addItem(__('Gravatar'),
     'plugin.php?p=gravatar',

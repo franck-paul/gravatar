@@ -13,11 +13,11 @@
 
 if (!defined('DC_RC_PATH')) {return;}
 
-$core->addBehavior('templateAfterValue', array('dcGravatar', 'getGravatarURL'));
-$core->addBehavior('publicHeadContent', array('dcGravatar', 'publicHeadContent'));
+$core->addBehavior('templateAfterValue', ['dcGravatar', 'getGravatarURL']);
+$core->addBehavior('publicHeadContent', ['dcGravatar', 'publicHeadContent']);
 
-$core->tpl->addValue('EntryAuthorGravatar', array('dcGravatar', 'EntryAuthorGravatar'));
-$core->tpl->addValue('CommentAuthorGravatar', array('dcGravatar', 'CommentAuthorGravatar'));
+$core->tpl->addValue('EntryAuthorGravatar', ['dcGravatar', 'EntryAuthorGravatar']);
+$core->tpl->addValue('CommentAuthorGravatar', ['dcGravatar', 'CommentAuthorGravatar']);
 
 class dcGravatar
 {
@@ -147,7 +147,7 @@ class dcGravatar
         // except that all those with weight 0 are placed at the beginning of
         // the list."
         shuffle($srv);
-        $srvs = array();
+        $srvs = [];
         foreach ($srv as $s) {
             if ($s['weight'] == 0) {
                 array_unshift($srvs, $s);

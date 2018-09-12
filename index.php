@@ -98,22 +98,22 @@ if (!empty($_POST)) {
     }
 }
 
-$gv_defaults = array(
+$gv_defaults = [
     __('Default')   => '',
     __('mm')        => 'mm',
     __('identicon') => 'identicon',
     __('monsterid') => 'monsterid',
     __('wavatar')   => 'wavatar',
     __('retro')     => 'retro'
-);
+];
 
-$gv_ratings = array(
+$gv_ratings = [
     __('Default') => '',
     __('G')       => 'g',
     __('PG')      => 'pg',
     __('R')       => 'r',
     __('X')       => 'x'
-);
+];
 
 $gv_url_test = ($gv_libravatar ?
     'https://seccdn.libravatar.org/avatar/%s' :
@@ -136,10 +136,10 @@ if ($gv_default != '') {
 <body>
 <?php
 echo dcPage::breadcrumb(
-    array(
+    [
         html::escapeHTML($core->blog->name) => '',
         __('Gravatar')                      => ''
-    ));
+    ]);
 echo dcPage::notices();
 
 echo

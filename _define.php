@@ -17,11 +17,11 @@ $this->registerModule(
     "Gravatar",                                                          // Name
     "Add Gravatar/Libravatar images to your posts and comments authors", // Description
     "Franck Paul",                                                       // Author
-    '0.8.1',                                                             // Version
-    array(
-        'requires'    => array(array('core', '2.13')), // Dependencies
-        'permissions' => 'admin',                      // Permissions
-        'type'        => 'plugin',                     // Type
-        'settings'    => array()                      // Settings
-    )
+    '0.9',                                                               // Version
+    [
+        'requires'    => [['core', '2.13']], // Dependencies
+        'permissions' => 'admin',            // Permissions
+        'type'        => 'plugin',           // Type
+        'settings'    => []                 // Settings
+    ]
 );
