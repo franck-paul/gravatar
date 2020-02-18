@@ -29,7 +29,7 @@ class dcGravatar
 
         $ret = '';
         if ($core->blog->settings->gravatar->active) {
-            $ret = ' <img src="' . '<?php echo dcGravatar::gravatarHelper(true); ?>' . '" ' .
+            $ret = ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(true); ?>' . '" ' .
                 '<?php echo dcGravatar::gravatarSizeHelper(true) ?> alt="" class="gravatar" />';
         }
         return $ret;
@@ -42,7 +42,7 @@ class dcGravatar
         $ret = '';
         if ($core->blog->settings->gravatar->active) {
             $ret = '<?php if (!$_ctx->comments->comment_trackback) : ?>' .
-                ' <img src="' . '<?php echo dcGravatar::gravatarHelper(false); ?>' . '" ' .
+                ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(false); ?>' . '" ' .
                 '<?php echo dcGravatar::gravatarSizeHelper(false) ?> alt="" class="gravatar" />' .
                 '<?php endif; ?>';
         }
@@ -56,11 +56,11 @@ class dcGravatar
         $ret = '';
         if ($core->blog->settings->gravatar->active) {
             if (($v == 'EntryAuthorLink') && ($core->blog->settings->gravatar->on_post)) {
-                $ret = ' <img src="' . '<?php echo dcGravatar::gravatarHelper(true); ?>' . '" ' .
+                $ret = ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(true); ?>' . '" ' .
                     '<?php echo dcGravatar::gravatarSizeHelper(true) ?> alt="" class="gravatar" />';
             } elseif (($v == 'CommentAuthorLink') && ($core->blog->settings->gravatar->on_comment)) {
                 $ret = '<?php if (!$_ctx->comments->comment_trackback) : ?>' .
-                    ' <img src="' . '<?php echo dcGravatar::gravatarHelper(false); ?>' . '" ' .
+                    ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(false); ?>' . '" ' .
                     '<?php echo dcGravatar::gravatarSizeHelper(false) ?> alt="" class="gravatar" />' .
                     '<?php endif; ?>';
             }
