@@ -22,6 +22,8 @@ $this->registerModule(
         'requires'    => [['core', '2.13']], // Dependencies
         'permissions' => 'admin',            // Permissions
         'type'        => 'plugin',           // Type
-        'settings'    => []                 // Settings
+        'settings'    => [],                 // Settings
+        'support'     => 'https://github.com/franck-paul/gravatar',
+        'details'     => 'https://open-time.net/?q=gravatar'
     ]
 );
