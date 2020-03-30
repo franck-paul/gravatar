@@ -82,7 +82,7 @@ msgid "Gravatar images CSS style:"
 msgstr "Style CSS pour les images Gravatars :"
 
 msgid "See <a href=\"https://en.gravatar.com/\">Gravatar</a> or <a href=\"https://www.libravatar.org/\">Libravatar</a> web sites for more information."
-msgstr "Voir le site web <a href=\"http://fr.gravatar.com/\">Gravatar</a> ou <a href=\"https://www.libravatar.org/\" hreflang=\"en\">Libravatar</a> pour plus d'information."
+msgstr "Voir le site web <a href=\"https://fr.gravatar.com/\">Gravatar</a> ou <a href=\"https://www.libravatar.org/\" hreflang=\"en\">Libravatar</a> pour plus d'information."
 
 #~ msgid "Activation"
 #~ msgstr "Activation"
