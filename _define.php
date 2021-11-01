@@ -27,6 +27,6 @@ $this->registerModule(
 
         'details'    => 'https://open-time.net/?q=gravatar',       // Details URL
         'support'    => 'https://github.com/franck-paul/gravatar', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/gravatar/main/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/gravatar/master/dcstore.xml'
     ]
 );
