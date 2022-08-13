@@ -10,49 +10,49 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
-
-$core->blog->settings->addNamespace('gravatar');
-if (is_null($core->blog->settings->gravatar->active)) {
+dcCore::app()->blog->settings->addNamespace('gravatar');
+if (is_null(dcCore::app()->blog->settings->gravatar->active)) {
     try {
         // Add default settings values if necessary
-        $core->blog->settings->gravatar->put('active', false, 'boolean', 'Active', false);
-        $core->blog->settings->gravatar->put('libravatar', false, 'boolean', 'Use Libravatar.org service instead of Gravatar.com', false);
-        $core->blog->settings->gravatar->put('on_post', false, 'boolean', 'Show post author Gravatar', false);
-        $core->blog->settings->gravatar->put('on_comment', true, 'boolean', 'Show comment author Gravatar', false);
-        $core->blog->settings->gravatar->put('size_on_post', 0, 'integer', 'Gravatar size for post author', false);
-        $core->blog->settings->gravatar->put('size_on_comment', 0, 'integer', 'Gravatar size for comment author', false);
-        $core->blog->settings->gravatar->put('default', '', 'string', 'Gravatar default imageset', false);
-        $core->blog->settings->gravatar->put('rating', '', 'string', 'Gravatar minimum rating', false);
-        $core->blog->settings->gravatar->put('style', '', 'string', 'Gravatar image style', false);
+        dcCore::app()->blog->settings->gravatar->put('active', false, 'boolean', 'Active', false);
+        dcCore::app()->blog->settings->gravatar->put('libravatar', false, 'boolean', 'Use Libravatar.org service instead of Gravatar.com', false);
+        dcCore::app()->blog->settings->gravatar->put('on_post', false, 'boolean', 'Show post author Gravatar', false);
+        dcCore::app()->blog->settings->gravatar->put('on_comment', true, 'boolean', 'Show comment author Gravatar', false);
+        dcCore::app()->blog->settings->gravatar->put('size_on_post', 0, 'integer', 'Gravatar size for post author', false);
+        dcCore::app()->blog->settings->gravatar->put('size_on_comment', 0, 'integer', 'Gravatar size for comment author', false);
+        dcCore::app()->blog->settings->gravatar->put('default', '', 'string', 'Gravatar default imageset', false);
+        dcCore::app()->blog->settings->gravatar->put('rating', '', 'string', 'Gravatar minimum rating', false);
+        dcCore::app()->blog->settings->gravatar->put('style', '', 'string', 'Gravatar image style', false);
 
-        $core->blog->triggerBlog();
+        dcCore::app()->blog->triggerBlog();
         http::redirect($p_url);
     } catch (Exception $e) {
-        $core->error->add($e->getMessage());
+        dcCore::app()->error->add($e->getMessage());
     }
 }
 
-$gv_active          = (boolean) $core->blog->settings->gravatar->active;
-$gv_libravatar      = (boolean) $core->blog->settings->gravatar->libravatar;
-$gv_on_post         = (boolean) $core->blog->settings->gravatar->on_post;
-$gv_on_comment      = (boolean) $core->blog->settings->gravatar->on_comment;
-$gv_size_on_post    = (integer) $core->blog->settings->gravatar->size_on_post;
-$gv_size_on_comment = (integer) $core->blog->settings->gravatar->size_on_comment;
-$gv_default         = $core->blog->settings->gravatar->default;
-$gv_rating          = $core->blog->settings->gravatar->rating;
-$gv_style           = $core->blog->settings->gravatar->style;
+$gv_active          = (bool) dcCore::app()->blog->settings->gravatar->active;
+$gv_libravatar      = (bool) dcCore::app()->blog->settings->gravatar->libravatar;
+$gv_on_post         = (bool) dcCore::app()->blog->settings->gravatar->on_post;
+$gv_on_comment      = (bool) dcCore::app()->blog->settings->gravatar->on_comment;
+$gv_size_on_post    = (int) dcCore::app()->blog->settings->gravatar->size_on_post;
+$gv_size_on_comment = (int) dcCore::app()->blog->settings->gravatar->size_on_comment;
+$gv_default         = dcCore::app()->blog->settings->gravatar->default;
+$gv_rating          = dcCore::app()->blog->settings->gravatar->rating;
+$gv_style           = dcCore::app()->blog->settings->gravatar->style;
 
 if (!empty($_POST)) {
-    try
-    {
+    try {
         $new_cache = false;
-        if ((isset($_POST['gv_active'])) && ($gv_active != (boolean) $_POST['gv_active'])) {
+        if ((isset($_POST['gv_active'])) && ($gv_active != (bool) $_POST['gv_active'])) {
             $new_cache = true;
-        } elseif ((isset($_POST['gv_on_post'])) && ($gv_on_post != (boolean) $_POST['gv_on_post'])) {
+        } elseif ((isset($_POST['gv_on_post'])) && ($gv_on_post != (bool) $_POST['gv_on_post'])) {
             $new_cache = true;
-        } elseif ((isset($_POST['gv_on_comment'])) && ($gv_on_comment = (boolean) $_POST['gv_on_comment'])) {
+        } elseif ((isset($_POST['gv_on_comment'])) && ($gv_on_comment = (bool) $_POST['gv_on_comment'])) {
             $new_cache = true;
         }
 
@@ -60,11 +60,11 @@ if (!empty($_POST)) {
         $gv_libravatar      = !empty($_POST['gv_libravatar']);
         $gv_on_post         = !empty($_POST['gv_on_post']);
         $gv_on_comment      = !empty($_POST['gv_on_comment']);
-        $gv_size_on_post    = (integer) $_POST['gv_size_on_post'];
-        $gv_size_on_comment = (integer) $_POST['gv_size_on_comment'];
+        $gv_size_on_post    = (int) $_POST['gv_size_on_post'];
+        $gv_size_on_comment = (int) $_POST['gv_size_on_comment'];
         $gv_default         = $_POST['gv_default'];
         $gv_rating          = $_POST['gv_rating'];
-        $gv_style           = trim($_POST['gv_style']);
+        $gv_style           = trim((string) $_POST['gv_style']);
 
         if (($gv_size_on_post < 0) || ($gv_size_on_post > 512)) {
             throw new Exception(__('The size must be between 1 and 512 pixels.'));
@@ -74,27 +74,27 @@ if (!empty($_POST)) {
         }
 
         # Everything's fine, save options
-        $core->blog->settings->addNamespace('gravatar');
-        $core->blog->settings->gravatar->put('active', $gv_active);
-        $core->blog->settings->gravatar->put('libravatar', $gv_libravatar);
-        $core->blog->settings->gravatar->put('on_post', $gv_on_post);
-        $core->blog->settings->gravatar->put('on_comment', $gv_on_comment);
-        $core->blog->settings->gravatar->put('size_on_post', $gv_size_on_post);
-        $core->blog->settings->gravatar->put('size_on_comment', $gv_size_on_comment);
-        $core->blog->settings->gravatar->put('default', $gv_default);
-        $core->blog->settings->gravatar->put('rating', $gv_rating);
-        $core->blog->settings->gravatar->put('style', $gv_style);
+        dcCore::app()->blog->settings->addNamespace('gravatar');
+        dcCore::app()->blog->settings->gravatar->put('active', $gv_active);
+        dcCore::app()->blog->settings->gravatar->put('libravatar', $gv_libravatar);
+        dcCore::app()->blog->settings->gravatar->put('on_post', $gv_on_post);
+        dcCore::app()->blog->settings->gravatar->put('on_comment', $gv_on_comment);
+        dcCore::app()->blog->settings->gravatar->put('size_on_post', $gv_size_on_post);
+        dcCore::app()->blog->settings->gravatar->put('size_on_comment', $gv_size_on_comment);
+        dcCore::app()->blog->settings->gravatar->put('default', $gv_default);
+        dcCore::app()->blog->settings->gravatar->put('rating', $gv_rating);
+        dcCore::app()->blog->settings->gravatar->put('style', $gv_style);
 
         if ($new_cache) {
-            $core->emptyTemplatesCache();
+            dcCore::app()->emptyTemplatesCache();
         }
 
-        $core->blog->triggerBlog();
+        dcCore::app()->blog->triggerBlog();
 
         dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
         http::redirect($p_url);
     } catch (Exception $e) {
-        $core->error->add($e->getMessage());
+        dcCore::app()->error->add($e->getMessage());
     }
 }
 
@@ -104,7 +104,7 @@ $gv_defaults = [
     __('identicon') => 'identicon',
     __('monsterid') => 'monsterid',
     __('wavatar')   => 'wavatar',
-    __('retro')     => 'retro'
+    __('retro')     => 'retro',
 ];
 
 $gv_ratings = [
@@ -112,7 +112,7 @@ $gv_ratings = [
     __('G')       => 'g',
     __('PG')      => 'pg',
     __('R')       => 'r',
-    __('X')       => 'x'
+    __('X')       => 'x',
 ];
 
 $gv_url_test = ($gv_libravatar ?
@@ -137,9 +137,10 @@ if ($gv_default != '') {
 <?php
 echo dcPage::breadcrumb(
     [
-        html::escapeHTML($core->blog->name) => '',
-        __('Gravatar')                      => ''
-    ]);
+        html::escapeHTML(dcCore::app()->blog->name) => '',
+        __('Gravatar')                              => '',
+    ]
+);
 echo dcPage::notices();
 
 echo
@@ -178,7 +179,7 @@ form::textarea('gv_style', 30, 8, html::escapeHTML($gv_style)) .
 
 '<p class="form-note">' . __('See <a href="https://en.gravatar.com/">Gravatar</a> or <a href="https://www.libravatar.org/">Libravatar</a> web sites for more information.') . '</p>' .
 
-'<p>' . $core->formNonce() . '<input type="submit" value="' . __('Save') . '" /></p>' .
+'<p>' . dcCore::app()->formNonce() . '<input type="submit" value="' . __('Save') . '" /></p>' .
     '</form>';
 
 ?>

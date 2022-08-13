@@ -10,14 +10,15 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
-if (!defined('DC_RC_PATH')) {return;}
+dcCore::app()->addBehavior('templateAfterValue', ['dcGravatar', 'getGravatarURL']);
+dcCore::app()->addBehavior('publicHeadContent', ['dcGravatar', 'publicHeadContent']);
 
-$core->addBehavior('templateAfterValue', ['dcGravatar', 'getGravatarURL']);
-$core->addBehavior('publicHeadContent', ['dcGravatar', 'publicHeadContent']);
-
-$core->tpl->addValue('EntryAuthorGravatar', ['dcGravatar', 'EntryAuthorGravatar']);
-$core->tpl->addValue('CommentAuthorGravatar', ['dcGravatar', 'CommentAuthorGravatar']);
+dcCore::app()->tpl->addValue('EntryAuthorGravatar', ['dcGravatar', 'EntryAuthorGravatar']);
+dcCore::app()->tpl->addValue('CommentAuthorGravatar', ['dcGravatar', 'CommentAuthorGravatar']);
 
 class dcGravatar
 {
@@ -25,52 +26,51 @@ class dcGravatar
 
     public static function EntryAuthorGravatar($attr)
     {
-        global $core;
-
         $ret = '';
-        if ($core->blog->settings->gravatar->active) {
+        if (dcCore::app()->blog->settings->gravatar->active) {
             $ret = ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(true); ?>' . '" ' .
                 '<?php echo dcGravatar::gravatarSizeHelper(true) ?> alt="" class="gravatar" />';
         }
+
         return $ret;
     }
 
     public static function CommentAuthorGravatar($attr)
     {
-        global $core;
-
         $ret = '';
-        if ($core->blog->settings->gravatar->active) {
-            $ret = '<?php if (!$_ctx->comments->comment_trackback) : ?>' .
+        if (dcCore::app()->blog->settings->gravatar->active) {
+            $ret = '<?php if (!dcCore::app()->ctx->comments->comment_trackback) : ?>' .
                 ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(false); ?>' . '" ' .
                 '<?php echo dcGravatar::gravatarSizeHelper(false) ?> alt="" class="gravatar" />' .
                 '<?php endif; ?>';
         }
+
         return $ret;
     }
 
     // Behaviours
 
-    public static function getGravatarURL($core, $v, $attr)
+    public static function getGravatarURL($core = null, $v, $attr)
     {
         $ret = '';
-        if ($core->blog->settings->gravatar->active) {
-            if (($v == 'EntryAuthorLink') && ($core->blog->settings->gravatar->on_post)) {
+        if (dcCore::app()->blog->settings->gravatar->active) {
+            if (($v == 'EntryAuthorLink') && (dcCore::app()->blog->settings->gravatar->on_post)) {
                 $ret = ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(true); ?>' . '" ' .
                     '<?php echo dcGravatar::gravatarSizeHelper(true) ?> alt="" class="gravatar" />';
-            } elseif (($v == 'CommentAuthorLink') && ($core->blog->settings->gravatar->on_comment)) {
-                $ret = '<?php if (!$_ctx->comments->comment_trackback) : ?>' .
+            } elseif (($v == 'CommentAuthorLink') && (dcCore::app()->blog->settings->gravatar->on_comment)) {
+                $ret = '<?php if (!dcCore::app()->ctx->comments->comment_trackback) : ?>' .
                     ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(false); ?>' . '" ' .
                     '<?php echo dcGravatar::gravatarSizeHelper(false) ?> alt="" class="gravatar" />' .
                     '<?php endif; ?>';
             }
         }
+
         return $ret;
     }
 
-    public static function publicHeadContent($core)
+    public static function publicHeadContent($core = null)
     {
-        if ($core->blog->settings->gravatar->active) {
+        if (dcCore::app()->blog->settings->gravatar->active) {
             echo '<style type="text/css">' . "\n" . self::gravatarStyle() . "</style>\n";
         }
     }
@@ -79,10 +79,11 @@ class dcGravatar
 
     public static function gravatarStyle()
     {
-        $s = $GLOBALS['core']->blog->settings->gravatar->style;
+        $s = dcCore::app()->blog->settings->gravatar->style;
         if ($s === null) {
             return;
         }
+
         return
             '.gravatar {' . "\n" .
             '	' . $s . "\n" .
@@ -91,13 +92,11 @@ class dcGravatar
 
     public static function gravatarSizeHelper($from_post)
     {
-        global $core;
-
         $size = 80;
-        if ($from_post && $core->blog->settings->gravatar->size_on_post != 0) {
-            $size = $core->blog->settings->gravatar->size_on_post;
-        } elseif (!$from_post && $core->blog->settings->gravatar->size_on_comment != 0) {
-            $size = $core->blog->settings->gravatar->size_on_comment;
+        if ($from_post && dcCore::app()->blog->settings->gravatar->size_on_post != 0) {
+            $size = dcCore::app()->blog->settings->gravatar->size_on_post;
+        } elseif (!$from_post && dcCore::app()->blog->settings->gravatar->size_on_comment != 0) {
+            $size = dcCore::app()->blog->settings->gravatar->size_on_comment;
         }
 
         return sprintf('width="%1$s" height="%1$s"', $size);
@@ -117,7 +116,7 @@ class dcGravatar
     protected static function srvGet($domain, $https = false)
     {
         // Are we going secure? Set up a fallback too.
-        if (isset($https) && $https === true) {
+        if ($https) {
             $subdomain = '_avatars-sec._tcp.';
             $fallback  = 'seccdn.';
             $port      = 443;
@@ -126,7 +125,7 @@ class dcGravatar
             $fallback  = 'cdn.';
             $port      = 80;
         }
-        if ($domain === null) {
+        if ($domain == null) {
             // No domain means invalid email address/openid
             return $fallback . 'libravatar.org';
         }
@@ -134,12 +133,12 @@ class dcGravatar
         // and the domain we had passed in.
         $srv = @dns_get_record($subdomain . $domain, DNS_SRV);
         // Did we get anything? No?
-        if (!$srv || count($srv) == 0) {
+        if (!$srv) {
             // Then let's try Libravatar.org.
             return $fallback . 'libravatar.org';
         }
         // Sort by the priority. We must get the lowest.
-        usort($srv, function ($a, $b) {return $a['pri'] - $b['pri'];});
+        usort($srv, fn ($a, $b) => $a['pri'] - $b['pri']);
         $top = $srv[0];
         $sum = 0;
         // Try to adhere to RFC2782's weighting algorithm, page 3
@@ -155,6 +154,7 @@ class dcGravatar
                 array_push($srvs, $s);
             }
         }
+        $pri = [];
         foreach ($srvs as $s) {
             if ($s['pri'] == $top['pri']) {
                 // "Compute the sum of the weights of those RRs"
@@ -175,20 +175,21 @@ class dcGravatar
                 if ($v['port'] !== $port) {
                     $target .= ':' . $v['port'];
                 }
+
                 return $target;
             }
         }
+        // Nothing found, return fallback
+        return $fallback . 'libravatar.org';
     }
 
     public static function gravatarHelper($from_post)
     {
-        global $core, $_ctx;
-
-        $email = $from_post ? $_ctx->posts->getAuthorEmail(false) : $_ctx->comments->getEmail(false);
-        $email = trim($email);
+        $email = $from_post ? dcCore::app()->ctx->posts->getAuthorEmail(false) : dcCore::app()->ctx->comments->getEmail(false);
+        $email = trim((string) $email);
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
 
-        if ($core->blog->settings->gravatar->libravatar) {
+        if (dcCore::app()->blog->settings->gravatar->libravatar) {
             if ($email) {
                 $parts  = explode('@', $email);
                 $domain = $parts[1];
@@ -205,17 +206,17 @@ class dcGravatar
         $url = $service . '/avatar/' . $email;
 
         $query = '';
-        if (($from_post) && ($core->blog->settings->gravatar->size_on_post != 0)) {
-            $query .= '&s=' . $core->blog->settings->gravatar->size_on_post;
+        if (($from_post) && (dcCore::app()->blog->settings->gravatar->size_on_post != 0)) {
+            $query .= '&s=' . dcCore::app()->blog->settings->gravatar->size_on_post;
         }
-        if ((!$from_post) && ($core->blog->settings->gravatar->size_on_comment != 0)) {
-            $query .= '&s=' . $core->blog->settings->gravatar->size_on_comment;
+        if ((!$from_post) && (dcCore::app()->blog->settings->gravatar->size_on_comment != 0)) {
+            $query .= '&s=' . dcCore::app()->blog->settings->gravatar->size_on_comment;
         }
-        if ($core->blog->settings->gravatar->default != '') {
-            $query .= '&d=' . $core->blog->settings->gravatar->default;
+        if (dcCore::app()->blog->settings->gravatar->default != '') {
+            $query .= '&d=' . dcCore::app()->blog->settings->gravatar->default;
         }
-        if ($core->blog->settings->gravatar->rating != '') {
-            $query .= '&r=' . $core->blog->settings->gravatar->rating;
+        if (dcCore::app()->blog->settings->gravatar->rating != '') {
+            $query .= '&r=' . dcCore::app()->blog->settings->gravatar->rating;
         }
         if ($query != '') {
             $query = '?' . substr($query, 1);

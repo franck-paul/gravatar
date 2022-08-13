@@ -10,19 +10,22 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 // dead but useful code, in order to have translations
 __('Gravatar') . __('Add Gravatar/Libravatar images to your posts and comments authors');
 
-$core->addBehavior('adminPageHTTPHeaderCSP', ['gravatarBehaviors', 'adminPageHTTPHeaderCSP']);
+dcCore::app()->addBehavior('adminPageHTTPHeaderCSP', ['gravatarBehaviors', 'adminPageHTTPHeaderCSP']);
 
-$_menu['Blog']->addItem(__('Gravatar'),
+$_menu['Blog']->addItem(
+    __('Gravatar'),
     'plugin.php?p=gravatar',
-    urldecode(dcPage::getPF('gravatar/icon.png')),
+    urldecode(dcPage::getPF('gravatar/icon.svg')),
     preg_match('/plugin.php\?p=gravatar(&.*)?$/', $_SERVER['REQUEST_URI']),
-    $core->auth->check('admin', $core->blog->id));
+    dcCore::app()->auth->check('admin', dcCore::app()->blog->id)
+);
 
 class gravatarBehaviors
 {
