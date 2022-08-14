@@ -50,7 +50,7 @@ class dcGravatar
 
     // Behaviours
 
-    public static function getGravatarURL($core = null, $v, $attr)
+    public static function getGravatarURL($core, $v, $attr)
     {
         $ret = '';
         if (dcCore::app()->blog->settings->gravatar->active) {

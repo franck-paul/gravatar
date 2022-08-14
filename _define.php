@@ -18,7 +18,7 @@ $this->registerModule(
     'Gravatar',                                                          // Name
     'Add Gravatar/Libravatar images to your posts and comments authors', // Description
     'Franck Paul',                                                       // Author
-    '0.10',
+    '0.10.1',
     [
         'requires'    => [['core', '2.23']], // Dependencies
         'permissions' => 'admin',            // Permissions
