@@ -1,11 +1,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="gravatar">
     <name>Gravatar</name>
-    <version>0.10.1</version>
+    <version>1.0</version>
     <author>Franck Paul</author>
     <desc>Add Gravatar/Libravatar images to your posts and comments authors</desc>
-    <file>https://github.com/franck-paul/gravatar/releases/download/0.10.1/plugin-gravatar-0.10.1.zip</file>
-    <da:dcmin>2.23</da:dcmin>
+    <file>https://github.com/franck-paul/gravatar/releases/download/1.0/plugin-gravatar-1.0.zip</file>
+    <da:dcmin>2.24</da:dcmin>
     <da:details>https://open-time.net/?q=gravatar</da:details>
     <da:support>https://github.com/franck-paul/gravatar</da:support>
   </module>
