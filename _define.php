@@ -15,18 +15,20 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'Gravatar',                                                          // Name
-    'Add Gravatar/Libravatar images to your posts and comments authors', // Description
-    'Franck Paul',                                                       // Author
-    '0.10.1',
+    'Gravatar',
+    'Add Gravatar/Libravatar images to your posts and comments authors',
+    'Franck Paul',
+    '1.0',
     [
-        'requires'    => [['core', '2.23']], // Dependencies
-        'permissions' => 'admin',            // Permissions
-        'type'        => 'plugin',           // Type
-        'settings'    => [],                 // Settings
+        'requires'    => [['core', '2.24']],
+        'permissions' => dcCore::app()->auth->makePermissions([
+            dcAuth::PERMISSION_ADMIN,
+        ]),
+        'type'     => 'plugin',
+        'settings' => [],
 
-        'details'    => 'https://open-time.net/?q=gravatar',       // Details URL
-        'support'    => 'https://github.com/franck-paul/gravatar', // Support URL
+        'details'    => 'https://open-time.net/?q=gravatar',
+        'support'    => 'https://github.com/franck-paul/gravatar',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/gravatar/master/dcstore.xml',
     ]
 );

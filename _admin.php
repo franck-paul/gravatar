@@ -17,14 +17,14 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 // dead but useful code, in order to have translations
 __('Gravatar') . __('Add Gravatar/Libravatar images to your posts and comments authors');
 
-dcCore::app()->addBehavior('adminPageHTTPHeaderCSP', ['gravatarBehaviors', 'adminPageHTTPHeaderCSP']);
-
-$_menu['Blog']->addItem(
+dcCore::app()->menu[dcAdmin::MENU_BLOG]->addItem(
     __('Gravatar'),
     'plugin.php?p=gravatar',
     urldecode(dcPage::getPF('gravatar/icon.svg')),
     preg_match('/plugin.php\?p=gravatar(&.*)?$/', $_SERVER['REQUEST_URI']),
-    dcCore::app()->auth->check('admin', dcCore::app()->blog->id)
+    dcCore::app()->auth->check(dcCore::app()->auth->makePermissions([
+        dcAuth::PERMISSION_ADMIN,
+    ]), dcCore::app()->blog->id)
 );
 
 class gravatarBehaviors
@@ -37,3 +37,5 @@ class gravatarBehaviors
         $csp['img-src'] .= ' ' . 'https://i0.wp.com https://secure.gravatar.com https://seccdn.libravatar.org';
     }
 }
+
+dcCore::app()->addBehavior('adminPageHTTPHeaderCSP', [gravatarBehaviors::class, 'adminPageHTTPHeaderCSP']);

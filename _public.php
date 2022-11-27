@@ -14,17 +14,11 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-dcCore::app()->addBehavior('templateAfterValue', ['dcGravatar', 'getGravatarURL']);
-dcCore::app()->addBehavior('publicHeadContent', ['dcGravatar', 'publicHeadContent']);
-
-dcCore::app()->tpl->addValue('EntryAuthorGravatar', ['dcGravatar', 'EntryAuthorGravatar']);
-dcCore::app()->tpl->addValue('CommentAuthorGravatar', ['dcGravatar', 'CommentAuthorGravatar']);
-
 class dcGravatar
 {
     // Templates
 
-    public static function EntryAuthorGravatar($attr)
+    public static function EntryAuthorGravatar()
     {
         $ret = '';
         if (dcCore::app()->blog->settings->gravatar->active) {
@@ -35,7 +29,7 @@ class dcGravatar
         return $ret;
     }
 
-    public static function CommentAuthorGravatar($attr)
+    public static function CommentAuthorGravatar()
     {
         $ret = '';
         if (dcCore::app()->blog->settings->gravatar->active) {
@@ -50,7 +44,7 @@ class dcGravatar
 
     // Behaviours
 
-    public static function getGravatarURL($core, $v, $attr)
+    public static function getGravatarURL($v)
     {
         $ret = '';
         if (dcCore::app()->blog->settings->gravatar->active) {
@@ -68,7 +62,7 @@ class dcGravatar
         return $ret;
     }
 
-    public static function publicHeadContent($core = null)
+    public static function publicHeadContent()
     {
         if (dcCore::app()->blog->settings->gravatar->active) {
             echo '<style type="text/css">' . "\n" . self::gravatarStyle() . "</style>\n";
@@ -225,3 +219,9 @@ class dcGravatar
         return html::escapeURL($url . $query);
     }
 }
+
+dcCore::app()->addBehavior('templateAfterValueV2', [dcGravatar::class, 'getGravatarURL']);
+dcCore::app()->addBehavior('publicHeadContent', [dcGravatar::class, 'publicHeadContent']);
+
+dcCore::app()->tpl->addValue('EntryAuthorGravatar', [dcGravatar::class, 'EntryAuthorGravatar']);
+dcCore::app()->tpl->addValue('CommentAuthorGravatar', [dcGravatar::class, 'CommentAuthorGravatar']);
