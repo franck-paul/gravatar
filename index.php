@@ -29,7 +29,7 @@ if (is_null(dcCore::app()->blog->settings->gravatar->active)) {
         dcCore::app()->blog->settings->gravatar->put('style', '', 'string', 'Gravatar image style', false);
 
         dcCore::app()->blog->triggerBlog();
-        http::redirect($p_url);
+        http::redirect(dcCore::app()->admin->getPageURL());
     } catch (Exception $e) {
         dcCore::app()->error->add($e->getMessage());
     }
@@ -92,7 +92,7 @@ if (!empty($_POST)) {
         dcCore::app()->blog->triggerBlog();
 
         dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
-        http::redirect($p_url);
+        http::redirect(dcCore::app()->admin->getPageURL());
     } catch (Exception $e) {
         dcCore::app()->error->add($e->getMessage());
     }
@@ -144,7 +144,7 @@ echo dcPage::breadcrumb(
 echo dcPage::notices();
 
 echo
-'<form action="' . $p_url . '" method="post">' .
+'<form action="' . dcCore::app()->admin->getPageURL() . '" method="post">' .
 '<p>' . form::checkbox('gv_active', 1, $gv_active) . ' ' .
 '<label for="gv_active" class="classic">' . __('Active Gravatars') . '</label></p>' .
 
