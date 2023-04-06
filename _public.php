@@ -10,9 +10,8 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return;
-}
+
+use Dotclear\Helper\Html\Html;
 
 class dcGravatar
 {
@@ -160,7 +159,7 @@ class dcGravatar
         }
         // "Then choose a uniform random number between 0 and the sum computed
         // (inclusive)"
-        $random = rand(0, $sum);
+        $random = random_int(0, $sum);
         // "and select the RR whose running sum value is the first in the selected
         // order which is greater than or equal to the random number selected"
         foreach ($pri as $k => $v) {
@@ -216,12 +215,14 @@ class dcGravatar
             $query = '?' . substr($query, 1);
         }
 
-        return html::escapeURL($url . $query);
+        return Html::escapeURL($url . $query);
     }
 }
 
-dcCore::app()->addBehavior('templateAfterValueV2', [dcGravatar::class, 'getGravatarURL']);
-dcCore::app()->addBehavior('publicHeadContent', [dcGravatar::class, 'publicHeadContent']);
+dcCore::app()->addBehaviors([
+    'templateAfterValueV2' => [dcGravatar::class, 'getGravatarURL'],
+    'publicHeadContent'    => [dcGravatar::class, 'publicHeadContent'],
+]);
 
 dcCore::app()->tpl->addValue('EntryAuthorGravatar', [dcGravatar::class, 'EntryAuthorGravatar']);
 dcCore::app()->tpl->addValue('CommentAuthorGravatar', [dcGravatar::class, 'CommentAuthorGravatar']);

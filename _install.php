@@ -19,7 +19,6 @@ if (!dcCore::app()->newVersion(basename(__DIR__), dcCore::app()->plugins->module
 }
 
 try {
-    dcCore::app()->blog->settings->addNamespace('gravatar');
     dcCore::app()->blog->settings->gravatar->put('active', false, 'boolean', 'Active', false, true);
     dcCore::app()->blog->settings->gravatar->put('libravatar', false, 'boolean', 'Use Libravatar.org service instead of Gravatar.com', false, true);
     dcCore::app()->blog->settings->gravatar->put('on_post', false, 'boolean', 'Show post author Gravatar', false, true);

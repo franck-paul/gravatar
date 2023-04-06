@@ -10,11 +10,14 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+
+use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Network\Http;
+
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-dcCore::app()->blog->settings->addNamespace('gravatar');
 if (is_null(dcCore::app()->blog->settings->gravatar->active)) {
     try {
         // Add default settings values if necessary
@@ -29,7 +32,7 @@ if (is_null(dcCore::app()->blog->settings->gravatar->active)) {
         dcCore::app()->blog->settings->gravatar->put('style', '', 'string', 'Gravatar image style', false);
 
         dcCore::app()->blog->triggerBlog();
-        http::redirect(dcCore::app()->admin->getPageURL());
+        Http::redirect(dcCore::app()->admin->getPageURL());
     } catch (Exception $e) {
         dcCore::app()->error->add($e->getMessage());
     }
@@ -74,7 +77,6 @@ if (!empty($_POST)) {
         }
 
         # Everything's fine, save options
-        dcCore::app()->blog->settings->addNamespace('gravatar');
         dcCore::app()->blog->settings->gravatar->put('active', $gv_active);
         dcCore::app()->blog->settings->gravatar->put('libravatar', $gv_libravatar);
         dcCore::app()->blog->settings->gravatar->put('on_post', $gv_on_post);
@@ -92,7 +94,7 @@ if (!empty($_POST)) {
         dcCore::app()->blog->triggerBlog();
 
         dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
-        http::redirect(dcCore::app()->admin->getPageURL());
+        Http::redirect(dcCore::app()->admin->getPageURL());
     } catch (Exception $e) {
         dcCore::app()->error->add($e->getMessage());
     }
@@ -137,7 +139,7 @@ if ($gv_default != '') {
 <?php
 echo dcPage::breadcrumb(
     [
-        html::escapeHTML(dcCore::app()->blog->name) => '',
+        Html::escapeHTML(dcCore::app()->blog->name) => '',
         __('Gravatar')                              => '',
     ]
 );
@@ -174,7 +176,7 @@ echo
 '<p><label for="gv_rating" class="classic">' . __('Rating:') . '</label> ' .
 form::combo('gv_rating', $gv_ratings, $gv_rating) . '</p>' .
 '<p class="area"><label for="gv_style">' . __('Gravatar images CSS style:') . '</label> ' .
-form::textarea('gv_style', 30, 8, html::escapeHTML($gv_style)) .
+form::textarea('gv_style', 30, 8, Html::escapeHTML($gv_style)) .
 '</p>' .
 
 '<p class="form-note">' . __('See <a href="https://en.gravatar.com/">Gravatar</a> or <a href="https://www.libravatar.org/">Libravatar</a> web sites for more information.') . '</p>' .
