@@ -10,64 +10,15 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+declare(strict_types=1);
 
+namespace Dotclear\Plugin\gravatar;
+
+use dcCore;
 use Dotclear\Helper\Html\Html;
 
-class dcGravatar
+class Helper
 {
-    // Templates
-
-    public static function EntryAuthorGravatar()
-    {
-        $ret = '';
-        if (dcCore::app()->blog->settings->gravatar->active) {
-            $ret = ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(true); ?>' . '" ' .
-                '<?php echo dcGravatar::gravatarSizeHelper(true) ?> alt="" class="gravatar" />';
-        }
-
-        return $ret;
-    }
-
-    public static function CommentAuthorGravatar()
-    {
-        $ret = '';
-        if (dcCore::app()->blog->settings->gravatar->active) {
-            $ret = '<?php if (!dcCore::app()->ctx->comments->comment_trackback) : ?>' .
-                ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(false); ?>' . '" ' .
-                '<?php echo dcGravatar::gravatarSizeHelper(false) ?> alt="" class="gravatar" />' .
-                '<?php endif; ?>';
-        }
-
-        return $ret;
-    }
-
-    // Behaviours
-
-    public static function getGravatarURL($v)
-    {
-        $ret = '';
-        if (dcCore::app()->blog->settings->gravatar->active) {
-            if (($v == 'EntryAuthorLink') && (dcCore::app()->blog->settings->gravatar->on_post)) {
-                $ret = ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(true); ?>' . '" ' .
-                    '<?php echo dcGravatar::gravatarSizeHelper(true) ?> alt="" class="gravatar" />';
-            } elseif (($v == 'CommentAuthorLink') && (dcCore::app()->blog->settings->gravatar->on_comment)) {
-                $ret = '<?php if (!dcCore::app()->ctx->comments->comment_trackback) : ?>' .
-                    ' <img load="lazy" src="' . '<?php echo dcGravatar::gravatarHelper(false); ?>' . '" ' .
-                    '<?php echo dcGravatar::gravatarSizeHelper(false) ?> alt="" class="gravatar" />' .
-                    '<?php endif; ?>';
-            }
-        }
-
-        return $ret;
-    }
-
-    public static function publicHeadContent()
-    {
-        if (dcCore::app()->blog->settings->gravatar->active) {
-            echo '<style type="text/css">' . "\n" . self::gravatarStyle() . "</style>\n";
-        }
-    }
-
     // Helpers
 
     public static function gravatarStyle()
@@ -218,11 +169,3 @@ class dcGravatar
         return Html::escapeURL($url . $query);
     }
 }
-
-dcCore::app()->addBehaviors([
-    'templateAfterValueV2' => [dcGravatar::class, 'getGravatarURL'],
-    'publicHeadContent'    => [dcGravatar::class, 'publicHeadContent'],
-]);
-
-dcCore::app()->tpl->addValue('EntryAuthorGravatar', [dcGravatar::class, 'EntryAuthorGravatar']);
-dcCore::app()->tpl->addValue('CommentAuthorGravatar', [dcGravatar::class, 'CommentAuthorGravatar']);

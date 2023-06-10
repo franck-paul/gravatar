@@ -13,118 +13,86 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../git-plugins/gravatar/src/Backend.php:28
 msgid "Add Gravatar/Libravatar images to your posts and comments authors"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Backend.php:28
-#: ../git-plugins/gravatar/src/Backend.php:40
-#: ../git-plugins/gravatar/src/Manage.php:186
-#: ../git-plugins/gravatar/src/Manage.php:191
 msgid "Gravatar"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:103
-#: ../git-plugins/gravatar/src/Manage.php:106
 msgid "The size must be between 1 and 512 pixels."
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:158
-#: ../git-plugins/gravatar/src/Manage.php:167
 msgid "Default"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:159
 msgid "mm"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:160
 msgid "identicon"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:161
 msgid "monsterid"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:162
 msgid "wavatar"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:163
 msgid "retro"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:168
 msgid "G"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:169
 msgid "PG"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:170
 msgid "R"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:171
 msgid "X"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:206
 msgid "Active Gravatars"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:208
 msgid "Options"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:212
 msgid "Use Libravatar.org service instead of Gravatar.com"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:217
 msgid "Automatically insert Gravatars for posts"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:220
 msgid "Automatically insert Gravatars for comments"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:222
 msgid "Advanced options"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:226
 msgid "Image size for post in pixels (1 to 512):"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:231
 msgid "Image size for comment in pixels (1 to 512):"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:237
 msgid "Default Gravatar imageset:"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:240
 msgid "Default Gravatar image"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:246
 msgid "Rating:"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:254
 msgid "Gravatar images CSS style:"
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:257
 msgid "See <a href=\"https://en.gravatar.com/\">Gravatar</a> or <a href=\"https://www.libravatar.org/\">Libravatar</a> web sites for more information."
 msgstr ""
 
-#: ../git-plugins/gravatar/src/Manage.php:262
 msgid "Save"
 msgstr ""
