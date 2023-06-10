@@ -37,4 +37,4 @@ L10n::$locales['Default Gravatar image'] = 'Image Gravatar par défaut';
 L10n::$locales['Rating:'] = 'Classement :';
 L10n::$locales['Gravatar images CSS style:'] = 'Style CSS pour les images Gravatars :';
 L10n::$locales['See <a href="https://en.gravatar.com/">Gravatar</a> or <a href="https://www.libravatar.org/">Libravatar</a> web sites for more information.'] = 'Voir le site web <a href="https://fr.gravatar.com/">Gravatar</a> ou <a href="https://www.libravatar.org/" hreflang="en">Libravatar</a> pour plus d\'information.';
-L10n::$locales['Save'] = '';
+L10n::$locales['Save'] = 'Enregistrer';
