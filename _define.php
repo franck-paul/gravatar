@@ -14,7 +14,7 @@ $this->registerModule(
     'Gravatar',
     'Add Gravatar/Libravatar images to your posts and comments authors',
     'Franck Paul',
-    '2.0',
+    '2.0.1',
     [
         'requires'    => [['core', '2.26']],
         'permissions' => dcCore::app()->auth->makePermissions([
