@@ -15,21 +15,18 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\gravatar;
 
 use dcCore;
-use dcNsProcess;
+use Dotclear\Core\Process;
 
-class Frontend extends dcNsProcess
+class Frontend extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::FRONTEND);
-
-        return static::$init;
+        return self::status(My::checkContext(My::FRONTEND));
     }
 
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -40,12 +37,12 @@ class Frontend extends dcNsProcess
         }
 
         dcCore::app()->addBehaviors([
-            'templateAfterValueV2' => [FrontendBehaviors::class, 'getGravatarURL'],
-            'publicHeadContent'    => [FrontendBehaviors::class, 'publicHeadContent'],
+            'templateAfterValueV2' => FrontendBehaviors::getGravatarURL(...),
+            'publicHeadContent'    => FrontendBehaviors::publicHeadContent(...),
         ]);
 
-        dcCore::app()->tpl->addValue('EntryAuthorGravatar', [FrontendTemplate::class, 'EntryAuthorGravatar']);
-        dcCore::app()->tpl->addValue('CommentAuthorGravatar', [FrontendTemplate::class, 'CommentAuthorGravatar']);
+        dcCore::app()->tpl->addValue('EntryAuthorGravatar', FrontendTemplate::EntryAuthorGravatar(...));
+        dcCore::app()->tpl->addValue('CommentAuthorGravatar', FrontendTemplate::CommentAuthorGravatar(...));
 
         return true;
     }
