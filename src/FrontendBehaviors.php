@@ -14,13 +14,11 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\gravatar;
 
-use dcCore;
-
 class FrontendBehaviors
 {
     public static function getGravatarURL($v)
     {
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         $ret = '';
         if ($settings->active) {
@@ -40,7 +38,7 @@ class FrontendBehaviors
 
     public static function publicHeadContent()
     {
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         if ($settings->active) {
             echo '<style type="text/css">' . "\n" . Helper::gravatarStyle() . "</style>\n";

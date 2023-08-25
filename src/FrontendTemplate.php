@@ -14,15 +14,13 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\gravatar;
 
-use dcCore;
-
 class FrontendTemplate
 {
     // Templates
 
     public static function EntryAuthorGravatar()
     {
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         $ret = '';
         if ($settings->active) {
@@ -35,7 +33,7 @@ class FrontendTemplate
 
     public static function CommentAuthorGravatar()
     {
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         $ret = '';
         if ($settings->active) {

@@ -50,7 +50,7 @@ class Manage extends Process
             return false;
         }
 
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         if (is_null($settings->active)) {
             try {
@@ -140,7 +140,7 @@ class Manage extends Process
             return;
         }
 
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         $gv_active          = (bool) $settings->active;
         $gv_libravatar      = (bool) $settings->libravatar;
@@ -181,7 +181,7 @@ class Manage extends Process
             $gv_url_test .= ($gv_libravatar ? '?' : '&') . 'd=' . $gv_default;
         }
 
-        Page::openModule(__('Gravatar'));
+        Page::openModule(My::name());
 
         echo Page::breadcrumb(
             [
@@ -258,7 +258,7 @@ class Manage extends Process
                 (new Para())->items([
                     (new Submit(['frmsubmit']))
                         ->value(__('Save')),
-                    dcCore::app()->formNonce(false),
+                    ... My::hiddenFields(),
                 ]),
             ])
         ->render();
