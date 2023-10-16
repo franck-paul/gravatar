@@ -18,7 +18,7 @@ class FrontendTemplate
 {
     // Templates
 
-    public static function EntryAuthorGravatar()
+    public static function EntryAuthorGravatar(): string
     {
         $settings = My::settings();
 
@@ -31,7 +31,7 @@ class FrontendTemplate
         return $ret;
     }
 
-    public static function CommentAuthorGravatar()
+    public static function CommentAuthorGravatar(): string
     {
         $settings = My::settings();
 

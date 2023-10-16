@@ -21,20 +21,20 @@ class Helper
 {
     // Helpers
 
-    public static function gravatarStyle()
+    public static function gravatarStyle(): string
     {
         $s = dcCore::app()->blog->settings->gravatar->style;
         if ($s === null) {
-            return;
+            return '';
         }
 
         return
             '.gravatar {' . "\n" .
-            '	' . $s . "\n" .
+            '   ' . $s . "\n" .
             '}' . "\n";
     }
 
-    public static function gravatarSizeHelper($from_post)
+    public static function gravatarSizeHelper(bool $from_post): string
     {
         $size = 80;
         if ($from_post && dcCore::app()->blog->settings->gravatar->size_on_post != 0) {
@@ -57,7 +57,7 @@ class Helper
      *
      * @return string The target URL.
      */
-    protected static function srvGet($domain, $https = false)
+    protected static function srvGet(string $domain, bool $https = false)
     {
         // Are we going secure? Set up a fallback too.
         if ($https) {
@@ -123,11 +123,12 @@ class Helper
                 return $target;
             }
         }
+
         // Nothing found, return fallback
         return $fallback . 'libravatar.org';
     }
 
-    public static function gravatarHelper($from_post)
+    public static function gravatarHelper(bool $from_post): string
     {
         $email = $from_post ? dcCore::app()->ctx->posts->getAuthorEmail(false) : dcCore::app()->ctx->comments->getEmail(false);
         $email = trim((string) $email);

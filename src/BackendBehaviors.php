@@ -14,13 +14,22 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\gravatar;
 
+use ArrayObject;
+
 class BackendBehaviors
 {
-    public static function adminPageHTTPHeaderCSP($csp)
+    /**
+     * @param      ArrayObject<string, string>   $csp    The content security policies
+     *
+     * @return     string
+     */
+    public static function adminPageHTTPHeaderCSP(ArrayObject $csp): string
     {
         if (!isset($csp['img-src'])) {
             $csp['img-src'] = '';
         }
         $csp['img-src'] .= ' ' . 'https://i0.wp.com https://secure.gravatar.com https://seccdn.libravatar.org';
+
+        return '';
     }
 }
