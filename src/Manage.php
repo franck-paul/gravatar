@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\gravatar;
 
 use dcCore;
 use dcNamespace;
+use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Process;
@@ -65,7 +66,7 @@ class Manage extends Process
                 $settings->put('rating', '', dcNamespace::NS_STRING, 'Gravatar minimum rating', false);
                 $settings->put('style', '', dcNamespace::NS_STRING, 'Gravatar image style', false);
 
-                dcCore::app()->blog->triggerBlog();
+                App::blog()->triggerBlog();
                 dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
@@ -119,7 +120,7 @@ class Manage extends Process
                     dcCore::app()->emptyTemplatesCache();
                 }
 
-                dcCore::app()->blog->triggerBlog();
+                App::blog()->triggerBlog();
 
                 Notices::addSuccessNotice(__('Settings have been successfully updated.'));
                 dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
@@ -185,8 +186,8 @@ class Manage extends Process
 
         echo Page::breadcrumb(
             [
-                Html::escapeHTML(dcCore::app()->blog->name) => '',
-                __('Gravatar')                              => '',
+                Html::escapeHTML(App::blog()->name()) => '',
+                __('Gravatar')                        => '',
             ]
         );
         echo Notices::getNotices();

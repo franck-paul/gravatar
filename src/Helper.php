@@ -23,24 +23,25 @@ class Helper
 
     public static function gravatarStyle(): string
     {
-        $s = dcCore::app()->blog->settings->gravatar->style;
-        if ($s === null) {
+        $style = My::settings()->style;
+        if ($style === null) {
             return '';
         }
 
         return
             '.gravatar {' . "\n" .
-            '   ' . $s . "\n" .
+            '   ' . $style . "\n" .
             '}' . "\n";
     }
 
     public static function gravatarSizeHelper(bool $from_post): string
     {
-        $size = 80;
-        if ($from_post && dcCore::app()->blog->settings->gravatar->size_on_post != 0) {
-            $size = dcCore::app()->blog->settings->gravatar->size_on_post;
-        } elseif (!$from_post && dcCore::app()->blog->settings->gravatar->size_on_comment != 0) {
-            $size = dcCore::app()->blog->settings->gravatar->size_on_comment;
+        $settings = My::settings();
+        $size     = 80;
+        if ($from_post && $settings->size_on_post != 0) {
+            $size = $settings->size_on_post;
+        } elseif (!$from_post && $settings->size_on_comment != 0) {
+            $size = $settings->size_on_comment;
         }
 
         return sprintf('width="%1$s" height="%1$s"', $size);
@@ -52,12 +53,12 @@ class Helper
      * Get the SRV record, filtered by priority and weight. If our domain
      * has no SRV records, fall back to Libravatar.org
      *
-     * @param string  $domain A string of the domain we extracted from the provided identifier with domainGet()
-     * @param boolean $https  Whether or not to look for https records
+     * @param null|string   $domain     A string of the domain we extracted from the provided identifier with domainGet()
+     * @param boolean       $https      Whether or not to look for https records
      *
      * @return string The target URL.
      */
-    protected static function srvGet(string $domain, bool $https = false)
+    protected static function srvGet(?string $domain, bool $https = false)
     {
         // Are we going secure? Set up a fallback too.
         if ($https) {
@@ -130,11 +131,13 @@ class Helper
 
     public static function gravatarHelper(bool $from_post): string
     {
+        $settings = My::settings();
+
         $email = $from_post ? dcCore::app()->ctx->posts->getAuthorEmail(false) : dcCore::app()->ctx->comments->getEmail(false);
         $email = trim((string) $email);
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
 
-        if (dcCore::app()->blog->settings->gravatar->libravatar) {
+        if ($settings->libravatar) {
             if ($email) {
                 $parts  = explode('@', $email);
                 $domain = $parts[1];
@@ -151,17 +154,17 @@ class Helper
         $url = $service . '/avatar/' . $email;
 
         $query = '';
-        if (($from_post) && (dcCore::app()->blog->settings->gravatar->size_on_post != 0)) {
-            $query .= '&s=' . dcCore::app()->blog->settings->gravatar->size_on_post;
+        if (($from_post) && ($settings->size_on_post != 0)) {
+            $query .= '&s=' . $settings->size_on_post;
         }
-        if ((!$from_post) && (dcCore::app()->blog->settings->gravatar->size_on_comment != 0)) {
-            $query .= '&s=' . dcCore::app()->blog->settings->gravatar->size_on_comment;
+        if ((!$from_post) && ($settings->size_on_comment != 0)) {
+            $query .= '&s=' . $settings->size_on_comment;
         }
-        if (dcCore::app()->blog->settings->gravatar->default != '') {
-            $query .= '&d=' . dcCore::app()->blog->settings->gravatar->default;
+        if ($settings->default != '') {
+            $query .= '&d=' . $settings->default;
         }
-        if (dcCore::app()->blog->settings->gravatar->rating != '') {
-            $query .= '&r=' . dcCore::app()->blog->settings->gravatar->rating;
+        if ($settings->rating != '') {
+            $query .= '&r=' . $settings->rating;
         }
         if ($query != '') {
             $query = '?' . substr($query, 1);
