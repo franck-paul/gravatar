@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\gravatar;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Menus;
 use Dotclear\Core\Process;
 
@@ -36,7 +36,7 @@ class Backend extends Process
 
         My::addBackendMenuItem(Menus::MENU_BLOG);
 
-        dcCore::app()->addBehavior('adminPageHTTPHeaderCSP', BackendBehaviors::adminPageHTTPHeaderCSP(...));
+        App::behavior()->addBehavior('adminPageHTTPHeaderCSP', BackendBehaviors::adminPageHTTPHeaderCSP(...));
 
         return true;
     }

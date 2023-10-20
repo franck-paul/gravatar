@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\gravatar;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Helper\Html\Html;
 
 class Helper
@@ -133,7 +133,7 @@ class Helper
     {
         $settings = My::settings();
 
-        $email = $from_post ? dcCore::app()->ctx->posts->getAuthorEmail(false) : dcCore::app()->ctx->comments->getEmail(false);
+        $email = $from_post ? App::frontend()->context()->posts->getAuthorEmail(false) : App::frontend()->context()->comments->getEmail(false);
         $email = trim((string) $email);
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
 

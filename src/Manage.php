@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\gravatar;
 
-use dcCore;
-use dcNamespace;
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
@@ -56,20 +54,20 @@ class Manage extends Process
         if (is_null($settings->active)) {
             try {
                 // Add default settings values if necessary
-                $settings->put('active', false, dcNamespace::NS_BOOL, 'Active', false);
-                $settings->put('libravatar', false, dcNamespace::NS_BOOL, 'Use Libravatar.org service instead of Gravatar.com', false);
-                $settings->put('on_post', false, dcNamespace::NS_BOOL, 'Show post author Gravatar', false);
-                $settings->put('on_comment', true, dcNamespace::NS_BOOL, 'Show comment author Gravatar', false);
-                $settings->put('size_on_post', 0, dcNamespace::NS_INT, 'Gravatar size for post author', false);
-                $settings->put('size_on_comment', 0, dcNamespace::NS_INT, 'Gravatar size for comment author', false);
-                $settings->put('default', '', dcNamespace::NS_STRING, 'Gravatar default imageset', false);
-                $settings->put('rating', '', dcNamespace::NS_STRING, 'Gravatar minimum rating', false);
-                $settings->put('style', '', dcNamespace::NS_STRING, 'Gravatar image style', false);
+                $settings->put('active', false, App::blogWorkspace()::NS_BOOL, 'Active', false);
+                $settings->put('libravatar', false, App::blogWorkspace()::NS_BOOL, 'Use Libravatar.org service instead of Gravatar.com', false);
+                $settings->put('on_post', false, App::blogWorkspace()::NS_BOOL, 'Show post author Gravatar', false);
+                $settings->put('on_comment', true, App::blogWorkspace()::NS_BOOL, 'Show comment author Gravatar', false);
+                $settings->put('size_on_post', 0, App::blogWorkspace()::NS_INT, 'Gravatar size for post author', false);
+                $settings->put('size_on_comment', 0, App::blogWorkspace()::NS_INT, 'Gravatar size for comment author', false);
+                $settings->put('default', '', App::blogWorkspace()::NS_STRING, 'Gravatar default imageset', false);
+                $settings->put('rating', '', App::blogWorkspace()::NS_STRING, 'Gravatar minimum rating', false);
+                $settings->put('style', '', App::blogWorkspace()::NS_STRING, 'Gravatar image style', false);
 
                 App::blog()->triggerBlog();
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
+                My::redirect();
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -106,26 +104,26 @@ class Manage extends Process
                 }
 
                 # Everything's fine, save options
-                $settings->put('active', $gv_active, dcNamespace::NS_BOOL);
-                $settings->put('libravatar', $gv_libravatar, dcNamespace::NS_BOOL);
-                $settings->put('on_post', $gv_on_post, dcNamespace::NS_BOOL);
-                $settings->put('on_comment', $gv_on_comment, dcNamespace::NS_BOOL);
-                $settings->put('size_on_post', $gv_size_on_post, dcNamespace::NS_INT);
-                $settings->put('size_on_comment', $gv_size_on_comment, dcNamespace::NS_INT);
-                $settings->put('default', $gv_default, dcNamespace::NS_STRING);
-                $settings->put('rating', $gv_rating, dcNamespace::NS_STRING);
-                $settings->put('style', $gv_style, dcNamespace::NS_STRING);
+                $settings->put('active', $gv_active, App::blogWorkspace()::NS_BOOL);
+                $settings->put('libravatar', $gv_libravatar, App::blogWorkspace()::NS_BOOL);
+                $settings->put('on_post', $gv_on_post, App::blogWorkspace()::NS_BOOL);
+                $settings->put('on_comment', $gv_on_comment, App::blogWorkspace()::NS_BOOL);
+                $settings->put('size_on_post', $gv_size_on_post, App::blogWorkspace()::NS_INT);
+                $settings->put('size_on_comment', $gv_size_on_comment, App::blogWorkspace()::NS_INT);
+                $settings->put('default', $gv_default, App::blogWorkspace()::NS_STRING);
+                $settings->put('rating', $gv_rating, App::blogWorkspace()::NS_STRING);
+                $settings->put('style', $gv_style, App::blogWorkspace()::NS_STRING);
 
                 if ($new_cache) {
-                    dcCore::app()->emptyTemplatesCache();
+                    App::cache()->emptyTemplatesCache();
                 }
 
                 App::blog()->triggerBlog();
 
                 Notices::addSuccessNotice(__('Settings have been successfully updated.'));
-                dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
+                My::redirect();
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -196,7 +194,7 @@ class Manage extends Process
 
         echo
         (new Form('a11y_params'))
-            ->action(dcCore::app()->admin->getPageURL())
+            ->action(App::backend()->getPageURL())
             ->method('post')
             ->fields([
                 (new Para())->items([

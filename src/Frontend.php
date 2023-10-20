@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\gravatar;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
 class Frontend extends Process
@@ -36,13 +36,13 @@ class Frontend extends Process
             return false;
         }
 
-        dcCore::app()->addBehaviors([
+        App::behavior()->addBehaviors([
             'templateAfterValueV2' => FrontendBehaviors::getGravatarURL(...),
             'publicHeadContent'    => FrontendBehaviors::publicHeadContent(...),
         ]);
 
-        dcCore::app()->tpl->addValue('EntryAuthorGravatar', FrontendTemplate::EntryAuthorGravatar(...));
-        dcCore::app()->tpl->addValue('CommentAuthorGravatar', FrontendTemplate::CommentAuthorGravatar(...));
+        App::frontend()->template()->addValue('EntryAuthorGravatar', FrontendTemplate::EntryAuthorGravatar(...));
+        App::frontend()->template()->addValue('CommentAuthorGravatar', FrontendTemplate::CommentAuthorGravatar(...));
 
         return true;
     }

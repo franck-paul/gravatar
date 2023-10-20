@@ -14,8 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\gravatar;
 
-use dcCore;
-use dcNamespace;
+use Dotclear\App;
 use Dotclear\Core\Process;
 use Exception;
 
@@ -36,17 +35,17 @@ class Install extends Process
             // Init
             $settings = My::settings();
 
-            $settings->put('active', false, dcNamespace::NS_BOOL, 'Active', false, true);
-            $settings->put('libravatar', false, dcNamespace::NS_BOOL, 'Use Libravatar.org service instead of Gravatar.com', false, true);
-            $settings->put('on_post', false, dcNamespace::NS_BOOL, 'Show post author Gravatar', false, true);
-            $settings->put('on_comment', true, dcNamespace::NS_BOOL, 'Show comment author Gravatar', false, true);
-            $settings->put('size_on_post', 0, dcNamespace::NS_INT, 'Gravatar size for post author', false, true);
-            $settings->put('size_on_comment', 0, dcNamespace::NS_INT, 'Gravatar size for comment author', false, true);
-            $settings->put('default', '', dcNamespace::NS_STRING, 'Gravatar default imageset', false, true);
-            $settings->put('rating', '', dcNamespace::NS_STRING, 'Gravatar minimum rating', false, true);
-            $settings->put('style', '', dcNamespace::NS_STRING, 'Gravatar image style', false, true);
+            $settings->put('active', false, App::blogWorkspace()::NS_BOOL, 'Active', false, true);
+            $settings->put('libravatar', false, App::blogWorkspace()::NS_BOOL, 'Use Libravatar.org service instead of Gravatar.com', false, true);
+            $settings->put('on_post', false, App::blogWorkspace()::NS_BOOL, 'Show post author Gravatar', false, true);
+            $settings->put('on_comment', true, App::blogWorkspace()::NS_BOOL, 'Show comment author Gravatar', false, true);
+            $settings->put('size_on_post', 0, App::blogWorkspace()::NS_INT, 'Gravatar size for post author', false, true);
+            $settings->put('size_on_comment', 0, App::blogWorkspace()::NS_INT, 'Gravatar size for comment author', false, true);
+            $settings->put('default', '', App::blogWorkspace()::NS_STRING, 'Gravatar default imageset', false, true);
+            $settings->put('rating', '', App::blogWorkspace()::NS_STRING, 'Gravatar minimum rating', false, true);
+            $settings->put('style', '', App::blogWorkspace()::NS_STRING, 'Gravatar image style', false, true);
         } catch (Exception $e) {
-            dcCore::app()->error->add($e->getMessage());
+            App::error()->add($e->getMessage());
         }
 
         return true;

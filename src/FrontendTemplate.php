@@ -37,7 +37,7 @@ class FrontendTemplate
 
         $ret = '';
         if ($settings->active) {
-            $ret = '<?php if (!dcCore::app()->ctx->comments->comment_trackback) : ?>' .
+            $ret = '<?php if (!App::frontend()->context()->comments->comment_trackback) : ?>' .
                 ' <img load="lazy" src="' . '<?php echo ' . Helper::class . '::gravatarHelper(false); ?>' . '" ' .
                 '<?php echo ' . Helper::class . '::gravatarSizeHelper(false) ?> alt="" class="gravatar" />' .
                 '<?php endif; ?>';
