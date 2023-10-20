@@ -83,7 +83,7 @@ class Helper
             return $fallback . 'libravatar.org';
         }
         // Sort by the priority. We must get the lowest.
-        usort($srv, fn ($a, $b) => $a['pri'] - $b['pri']);
+        usort($srv, fn ($a, $b) => $a['pri'] - $b['pri']);  // @phpstan-ignore-line
         $top = $srv[0];
         $sum = 0;
         // Try to adhere to RFC2782's weighting algorithm, page 3
