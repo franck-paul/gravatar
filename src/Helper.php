@@ -70,10 +70,12 @@ class Helper
             $fallback  = 'cdn.';
             $port      = 80;
         }
+
         if ($domain == null) {
             // No domain means invalid email address/openid
             return $fallback . 'libravatar.org';
         }
+
         // Lets try get us some records based on the choice of subdomain
         // and the domain we had passed in.
         $srv = @dns_get_record($subdomain . $domain, DNS_SRV);
@@ -82,8 +84,9 @@ class Helper
             // Then let's try Libravatar.org.
             return $fallback . 'libravatar.org';
         }
+
         // Sort by the priority. We must get the lowest.
-        usort($srv, fn ($a, $b) => $a['pri'] - $b['pri']);  // @phpstan-ignore-line
+        usort($srv, static fn($a, $b) => $a['pri'] - $b['pri']);  // @phpstan-ignore-line
         $top = $srv[0];
         $sum = 0;
         // Try to adhere to RFC2782's weighting algorithm, page 3
@@ -96,9 +99,10 @@ class Helper
             if ($s['weight'] == 0) {
                 array_unshift($srvs, $s);
             } else {
-                array_push($srvs, $s);
+                $srvs[] = $s;
             }
         }
+
         $pri = [];
         foreach ($srvs as $s) {
             if ($s['pri'] == $top['pri']) {
@@ -109,6 +113,7 @@ class Helper
                 $pri[$sum] = $s;
             }
         }
+
         // "Then choose a uniform random number between 0 and the sum computed
         // (inclusive)"
         $random = random_int(0, $sum);
@@ -144,12 +149,13 @@ class Helper
             } else {
                 $domain = null;
             }
+
             $service = 'https://' . self::srvGet($domain, true);
         } else {
             $service = 'https://secure.gravatar.com';
         }
 
-        $email = (!$email ? '00000000000000000000000000000000' : md5(strtolower($email)));
+        $email = ($email ? md5(strtolower($email)) : '00000000000000000000000000000000');
 
         $url = $service . '/avatar/' . $email;
 
@@ -157,15 +163,19 @@ class Helper
         if (($from_post) && ($settings->size_on_post != 0)) {
             $query .= '&s=' . $settings->size_on_post;
         }
+
         if ((!$from_post) && ($settings->size_on_comment != 0)) {
             $query .= '&s=' . $settings->size_on_comment;
         }
+
         if ($settings->default != '') {
             $query .= '&d=' . $settings->default;
         }
+
         if ($settings->rating != '') {
             $query .= '&r=' . $settings->rating;
         }
+
         if ($query != '') {
             $query = '?' . substr($query, 1);
         }

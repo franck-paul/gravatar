@@ -44,8 +44,8 @@ class Install extends Process
             $settings->put('default', '', App::blogWorkspace()::NS_STRING, 'Gravatar default imageset', false, true);
             $settings->put('rating', '', App::blogWorkspace()::NS_STRING, 'Gravatar minimum rating', false, true);
             $settings->put('style', '', App::blogWorkspace()::NS_STRING, 'Gravatar image style', false, true);
-        } catch (Exception $e) {
-            App::error()->add($e->getMessage());
+        } catch (Exception $exception) {
+            App::error()->add($exception->getMessage());
         }
 
         return true;

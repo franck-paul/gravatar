@@ -23,11 +23,10 @@ class FrontendBehaviors
         $ret = '';
         if ($settings->active) {
             if (($v === 'EntryAuthorLink') && ($settings->on_post)) {
-                $ret = ' <img load="lazy" src="' . '<?php echo ' . Helper::class . '::gravatarHelper(true); ?>' . '" ' .
+                $ret = ' <img load="lazy" src="<?php echo ' . Helper::class . '::gravatarHelper(true); ?>' . '" ' .
                     '<?php echo ' . Helper::class . '::gravatarSizeHelper(true) ?> alt="" class="gravatar" />';
             } elseif (($v === 'CommentAuthorLink') && ($settings->on_comment)) {
-                $ret = '<?php if (!App::frontend()->context()->comments->comment_trackback) : ?>' .
-                    ' <img load="lazy" src="' . '<?php echo ' . Helper::class . '::gravatarHelper(false); ?>' . '" ' .
+                $ret = '<?php if (!App::frontend()->context()->comments->comment_trackback) : ?> <img load="lazy" src="' . '<?php echo ' . Helper::class . '::gravatarHelper(false); ?>' . '" ' .
                     '<?php echo ' . Helper::class . '::gravatarSizeHelper(false) ?> alt="" class="gravatar" />' .
                     '<?php endif; ?>';
             }

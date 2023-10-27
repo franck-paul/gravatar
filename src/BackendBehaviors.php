@@ -28,7 +28,8 @@ class BackendBehaviors
         if (!isset($csp['img-src'])) {
             $csp['img-src'] = '';
         }
-        $csp['img-src'] .= ' ' . 'https://i0.wp.com https://secure.gravatar.com https://seccdn.libravatar.org';
+
+        $csp['img-src'] .= ' https://i0.wp.com https://secure.gravatar.com https://seccdn.libravatar.org';
 
         return '';
     }

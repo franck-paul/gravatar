@@ -71,16 +71,16 @@ class Manage extends Process
             }
         }
 
-        if (!empty($_POST)) {
+        if ($_POST !== []) {
             try {
                 $gv_active     = (bool) $settings->active;
                 $gv_on_post    = (bool) $settings->on_post;
                 $gv_on_comment = (bool) $settings->on_comment;
 
                 $new_cache = false;
-                if ((isset($_POST['gv_active'])) && ($gv_active != (bool) $_POST['gv_active'])) {
+                if ((isset($_POST['gv_active'])) && ($gv_active !== (bool) $_POST['gv_active'])) {
                     $new_cache = true;
-                } elseif ((isset($_POST['gv_on_post'])) && ($gv_on_post != (bool) $_POST['gv_on_post'])) {
+                } elseif ((isset($_POST['gv_on_post'])) && ($gv_on_post !== (bool) $_POST['gv_on_post'])) {
                     $new_cache = true;
                 } elseif ((isset($_POST['gv_on_comment'])) && ($gv_on_comment = (bool) $_POST['gv_on_comment'])) {
                     $new_cache = true;
@@ -99,6 +99,7 @@ class Manage extends Process
                 if (($gv_size_on_post < 0) || ($gv_size_on_post > 512)) {
                     throw new Exception(__('The size must be between 1 and 512 pixels.'));
                 }
+
                 if (($gv_size_on_comment < 0) || ($gv_size_on_comment > 512)) {
                     throw new Exception(__('The size must be between 1 and 512 pixels.'));
                 }
