@@ -235,7 +235,7 @@ class Manage extends Process
                     ->label((new Label(__('Default Gravatar imageset:'), Label::INSIDE_TEXT_BEFORE))),
                 ]),
                 (new Para())->items([
-                    (new Text(null, '<img src="' . $gv_url_test . '" alt="' . __('Default Gravatar image') . '" ' . '/>')),
+                    (new Text(null, '<img src="' . $gv_url_test . '" alt="' . __('Default Gravatar image') . '" ' . '>')),
                 ]),
                 (new Para())->items([
                     (new Select('gv_rating'))
@@ -258,7 +258,7 @@ class Manage extends Process
                 (new Para())->items([
                     (new Submit(['frmsubmit']))
                         ->value(__('Save')),
-                    ... My::hiddenFields(),
+                    ...My::hiddenFields(),
                 ]),
             ])
         ->render();
