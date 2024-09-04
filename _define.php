@@ -14,7 +14,7 @@ $this->registerModule(
     'Gravatar',
     'Add Gravatar/Libravatar images to your posts and comments authors',
     'Franck Paul',
-    '4.1',
+    '4.2',
     [
         'requires'    => [['core', '2.28']],
         'permissions' => 'My',
