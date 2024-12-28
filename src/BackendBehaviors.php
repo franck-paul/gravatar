@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief gravatar, a plugin for Dotclear 2
  *
@@ -20,8 +21,6 @@ class BackendBehaviors
 {
     /**
      * @param      ArrayObject<string, string>   $csp    The content security policies
-     *
-     * @return     string
      */
     public static function adminPageHTTPHeaderCSP(ArrayObject $csp): string
     {

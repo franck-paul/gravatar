@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief gravatar, a plugin for Dotclear 2
  *
@@ -26,7 +27,7 @@ class FrontendBehaviors
                 $ret = ' <img load="lazy" src="<?= ' . Helper::class . '::gravatarHelper(true) ?>' . '" ' .
                     '<?= ' . Helper::class . '::gravatarSizeHelper(true) ?> alt="" class="gravatar">';
             } elseif (($v === 'CommentAuthorLink') && ($settings->on_comment)) {
-                $ret = '<?php if (!App::frontend()->context()->comments->comment_trackback) : ?> <img load="lazy" src="' . '<?= ' . Helper::class . '::gravatarHelper(false) ?>' . '" ' .
+                $ret = '<?php if (!App::frontend()->context()->comments->comment_trackback) : ?> <img load="lazy" src="<?= ' . Helper::class . '::gravatarHelper(false) ?>' . '" ' .
                     '<?= ' . Helper::class . '::gravatarSizeHelper(false) ?> alt="" class="gravatar">' .
                     '<?php endif; ?>';
             }

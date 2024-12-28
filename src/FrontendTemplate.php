@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief gravatar, a plugin for Dotclear 2
  *
@@ -37,7 +38,7 @@ class FrontendTemplate
 
         $ret = '';
         if ($settings->active) {
-            $ret = '<?php if (!App::frontend()->context()->comments->comment_trackback) : ?> <img load="lazy" src="' . '<?= ' . Helper::class . '::gravatarHelper(false) ?>' . '" ' .
+            $ret = '<?php if (!App::frontend()->context()->comments->comment_trackback) : ?> <img load="lazy" src="<?= ' . Helper::class . '::gravatarHelper(false) ?>' . '" ' .
                 '<?= ' . Helper::class . '::gravatarSizeHelper(false) ?> alt="" class="gravatar">' .
                 '<?php endif; ?>';
         }

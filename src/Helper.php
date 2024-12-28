@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief gravatar, a plugin for Dotclear 2
  *
@@ -86,7 +87,7 @@ class Helper
         }
 
         // Sort by the priority. We must get the lowest.
-        usort($srv, static fn($a, $b) => $a['pri'] - $b['pri']);  // @phpstan-ignore-line
+        usort($srv, static fn ($a, $b): int => (int) ($a['pri'] - $b['pri']));
         $top = $srv[0];
         $sum = 0;
         // Try to adhere to RFC2782's weighting algorithm, page 3
@@ -176,7 +177,7 @@ class Helper
             $query .= '&r=' . $settings->rating;
         }
 
-        if ($query != '') {
+        if ($query !== '') {
             $query = '?' . substr($query, 1);
         }
 
