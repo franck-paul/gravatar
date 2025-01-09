@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief gravatar, a plugin for Dotclear 2
  *
@@ -194,7 +195,7 @@ class Manage extends Process
         // Form
 
         echo
-        (new Form('a11y_params'))
+        (new Form('gv_params'))
             ->action(App::backend()->getPageURL())
             ->method('post')
             ->fields([
