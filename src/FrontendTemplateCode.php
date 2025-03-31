@@ -16,45 +16,12 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\gravatar;
 
 use Dotclear\App;
-use Dotclear\Plugin\TemplateHelper\Code;
 
-class FrontendBehaviors
+class FrontendTemplateCode
 {
-    public static function publicHeadContent(): string
-    {
-        $settings = My::settings();
+    // Templates
 
-        if ($settings->active) {
-            echo '<style type="text/css">' . "\n" . Helper::gravatarStyle() . "</style>\n";
-        }
-
-        return '';
-    }
-
-    public static function getGravatarURL(string $v): string
-    {
-        $settings = My::settings();
-
-        if (!$settings->active) {
-            return '';
-        }
-
-        if (($v === 'EntryAuthorLink') && ($settings->on_post)) {
-            return Code::getPHPCode(
-                self::getGravatarURLPostCode(...)
-            );
-        } elseif (($v === 'CommentAuthorLink') && ($settings->on_comment)) {
-            return Code::getPHPCode(
-                self::getGravatarURLCommentCode(...)
-            );
-        }
-
-        return '';
-    }
-
-    // TemplateHelper code
-
-    protected static function getGravatarURLPostCode(
+    public static function EntryAuthorGravatar(
     ): void {
         echo (new \Dotclear\Helper\Html\Form\Img(\Dotclear\Plugin\gravatar\Helper::gravatarHelper(true)))
             ->alt('')
@@ -64,7 +31,7 @@ class FrontendBehaviors
         ->render();
     }
 
-    protected static function getGravatarURLCommentCode(
+    public static function CommentAuthorGravatar(
     ): void {
         if (!App::frontend()->context()->comments->comment_trackback) {
             echo (new \Dotclear\Helper\Html\Form\Img(\Dotclear\Plugin\gravatar\Helper::gravatarHelper(false)))

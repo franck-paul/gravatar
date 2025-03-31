@@ -15,6 +15,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\gravatar;
 
+use Dotclear\Plugin\TemplateHelper\Code;
+
 class FrontendTemplate
 {
     // Templates
@@ -23,26 +25,25 @@ class FrontendTemplate
     {
         $settings = My::settings();
 
-        $ret = '';
-        if ($settings->active) {
-            $ret = ' <img load="lazy" src="<?= ' . Helper::class . '::gravatarHelper(true) ?>' . '" ' .
-                '<?= ' . Helper::class . '::gravatarSizeHelper(true) ?> alt="" class="gravatar">';
+        if (!$settings->active) {
+            return '';
         }
 
-        return $ret;
+        return Code::getPHPCode(
+            FrontendTemplateCode::EntryAuthorGravatar(...)
+        );
     }
 
     public static function CommentAuthorGravatar(): string
     {
         $settings = My::settings();
 
-        $ret = '';
-        if ($settings->active) {
-            $ret = '<?php if (!App::frontend()->context()->comments->comment_trackback) : ?> <img load="lazy" src="<?= ' . Helper::class . '::gravatarHelper(false) ?>' . '" ' .
-                '<?= ' . Helper::class . '::gravatarSizeHelper(false) ?> alt="" class="gravatar">' .
-                '<?php endif; ?>';
+        if (!$settings->active) {
+            return '';
         }
 
-        return $ret;
+        return Code::getPHPCode(
+            FrontendTemplateCode::CommentAuthorGravatar(...)
+        );
     }
 }

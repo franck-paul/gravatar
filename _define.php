@@ -17,8 +17,11 @@ $this->registerModule(
     'Franck Paul',
     '4.2.1',
     [
-        'date'        => '2003-08-13T13:42:00+0100',
-        'requires'    => [['core', '2.28']],
+        'date'     => '2003-08-13T13:42:00+0100',
+        'requires' => [
+            ['core', '2.34'],
+            ['TemplateHelper'],
+        ],
         'permissions' => 'My',
         'type'        => 'plugin',
         'settings'    => [],
@@ -26,5 +29,6 @@ $this->registerModule(
         'details'    => 'https://open-time.net/?q=gravatar',
         'support'    => 'https://github.com/franck-paul/gravatar',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/gravatar/main/dcstore.xml',
+        'license'    => 'gpl2',
     ]
 );
