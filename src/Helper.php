@@ -87,7 +87,7 @@ class Helper
         }
 
         // Sort by the priority. We must get the lowest.
-        usort($srv, static fn ($a, $b): int => (int) ($a['pri'] - $b['pri']));
+        usort($srv, static fn (array $a, array $b): int => (int) ($a['pri'] - $b['pri']));
         $top = $srv[0];
         $sum = 0;
         // Try to adhere to RFC2782's weighting algorithm, page 3
