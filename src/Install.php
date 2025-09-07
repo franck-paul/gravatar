@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief gravatar, a plugin for Dotclear 2
  *
@@ -15,11 +16,13 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\gravatar;
 
 use Dotclear\App;
-use Dotclear\Core\Process;
+use Dotclear\Helper\Process\TraitProcess;
 use Exception;
 
-class Install extends Process
+class Install
 {
+    use TraitProcess;
+
     public static function init(): bool
     {
         return self::status(My::checkContext(My::INSTALL));
