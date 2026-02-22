@@ -3,7 +3,6 @@
 [![Release](https://img.shields.io/github/v/release/franck-paul/gravatar)](https://github.com/franck-paul/gravatar/releases)
 [![Date](https://img.shields.io/github/release-date/franck-paul/gravatar)](https://github.com/franck-paul/gravatar/releases)
 [![Issues](https://img.shields.io/github/issues/franck-paul/gravatar)](https://github.com/franck-paul/gravatar/issues)
-[![Dotaddict](https://img.shields.io/badge/dotaddict-official-green.svg)](https://plugins.dotaddict.org/dc2/details/gravatar)
 [![License](https://img.shields.io/github/license/franck-paul/gravatar)](https://github.com/franck-paul/gravatar/blob/master/LICENSE)
 
 ## Description
