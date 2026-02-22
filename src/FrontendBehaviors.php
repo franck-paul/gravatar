@@ -43,7 +43,9 @@ class FrontendBehaviors
             return Code::getPHPCode(
                 self::getGravatarURLPostCode(...)
             );
-        } elseif (($v === 'CommentAuthorLink') && ($settings->on_comment)) {
+        }
+
+        if (($v === 'CommentAuthorLink') && ($settings->on_comment)) {
             return Code::getPHPCode(
                 self::getGravatarURLCommentCode(...)
             );
