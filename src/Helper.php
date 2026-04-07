@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\gravatar;
 
 use Dotclear\App;
+use Dotclear\Database\MetaRecord;
 use Dotclear\Helper\Html\Html;
 
 class Helper
@@ -24,8 +25,8 @@ class Helper
 
     public static function gravatarStyle(): string
     {
-        $style = My::settings()->style;
-        if ($style === null) {
+        $style = is_string($style = My::settings()->style) ? $style : '';
+        if ($style === '') {
             return '';
         }
 
@@ -38,11 +39,18 @@ class Helper
     public static function gravatarSizeHelper(bool $from_post): string
     {
         $settings = My::settings();
-        $size     = 80;
-        if ($from_post && $settings->size_on_post != 0) {
-            $size = $settings->size_on_post;
-        } elseif (!$from_post && $settings->size_on_comment != 0) {
-            $size = $settings->size_on_comment;
+
+        $_Int = fn (mixed $var, int $default = 0): int => $var !== null && is_numeric($val = $var) ? (int) $val : $default;
+
+        $size_on_post    = $_Int($settings->size_on_post);
+        $size_on_comment = $_Int($settings->size_on_comment);
+
+        $size = 80;
+
+        if ($from_post && $size_on_post !== 0) {
+            $size = $size_on_post;
+        } elseif (!$from_post && $size_on_comment !== 0) {
+            $size = $size_on_comment;
         }
 
         return sprintf('width="%1$s" height="%1$s"', $size);
@@ -59,7 +67,7 @@ class Helper
      *
      * @return string The target URL.
      */
-    protected static function srvGet(?string $domain, bool $https = false)
+    protected static function srvGet(?string $domain, bool $https = false): string
     {
         // Are we going secure? Set up a fallback too.
         if ($https) {
@@ -87,7 +95,8 @@ class Helper
         }
 
         // Sort by the priority. We must get the lowest.
-        usort($srv, static fn (array $a, array $b): int => (int) ($a['pri'] - $b['pri']));
+        usort($srv, fn (array $a, array $b): int => ((isset($a['pri']) && is_numeric($first = $a['pri']) ? (int) $first : 0) - (isset($b['pri']) && is_numeric($second = $b['pri']) ? (int) $second : 0)));
+
         $top = $srv[0];
         $sum = 0;
         // Try to adhere to RFC2782's weighting algorithm, page 3
@@ -108,7 +117,7 @@ class Helper
         foreach ($srvs as $s) {
             if ($s['pri'] == $top['pri']) {
                 // "Compute the sum of the weights of those RRs"
-                $sum += (int) $s['weight'];
+                $sum += (isset($s['weight']) && is_numeric($weigth = $s['weigth']) ? (int) $weigth : 0);
                 // "and with each RR associate the running sum in the selected
                 // order."
                 $pri[$sum] = $s;
@@ -122,12 +131,15 @@ class Helper
         // order which is greater than or equal to the random number selected"
         foreach ($pri as $k => $v) {
             if ($k >= $random) {
-                $target = $v['target'];
-                if ($v['port'] !== $port) {
-                    $target .= ':' . $v['port'];
-                }
+                $target = is_string($target = $v['target']) ? $target : '';
+                if ($target !== '') {
+                    $target_port = isset($v['port']) && is_numeric($target_port = $v['port']) ? (int) $target_port : $port;
+                    if ($target_port !== $port) {
+                        $target .= ':' . $target_port;
+                    }
 
-                return $target;
+                    return $target;
+                }
             }
         }
 
@@ -139,12 +151,16 @@ class Helper
     {
         $settings = My::settings();
 
-        $email = $from_post ? App::frontend()->context()->posts->getAuthorEmail(false) : App::frontend()->context()->comments->getEmail(false);
-        $email = trim((string) $email);
-        $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+        $rs = $from_post ? App::frontend()->context()->posts : App::frontend()->context()->comments;
+        if (!$rs instanceof MetaRecord) {
+            return '';
+        }
+
+        $email = $from_post ? $rs->getAuthorEmail(false) : $rs->getEmail(false);
+        $email = is_string($email = filter_var($email, FILTER_VALIDATE_EMAIL)) ? $email : '';
 
         if ($settings->libravatar) {
-            if ($email) {
+            if ($email === '') {
                 $parts  = explode('@', $email);
                 $domain = $parts[1];
             } else {
@@ -156,25 +172,36 @@ class Helper
             $service = 'https://secure.gravatar.com';
         }
 
-        $email = ($email ? md5(strtolower($email)) : '00000000000000000000000000000000');
-
-        $url = $service . '/avatar/' . $email;
+        $email = ($email !== '' ? md5(strtolower($email)) : '00000000000000000000000000000000');
+        $url   = $service . '/avatar/' . $email;
 
         $query = '';
-        if (($from_post) && ($settings->size_on_post != 0)) {
-            $query .= '&s=' . $settings->size_on_post;
+
+        // Variable data helpers
+        $_Int = fn (mixed $var, int $default = 0): int => $var !== null && is_numeric($val = $var) ? (int) $val : $default;
+        $_Str = fn (mixed $var, string $default = ''): string => $var !== null && is_string($val = $var) ? $val : $default;
+
+        $settings = My::settings();
+
+        $size_on_post    = $_Int($settings->size_on_post);
+        $size_on_comment = $_Int($settings->size_on_comment);
+        $default         = $_Str($settings->default);
+        $rating          = $_Str($settings->rating);
+
+        if ($from_post && $size_on_post !== 0) {
+            $query .= '&s=' . $size_on_post;
         }
 
-        if ((!$from_post) && ($settings->size_on_comment != 0)) {
-            $query .= '&s=' . $settings->size_on_comment;
+        if (!$from_post && $size_on_comment !== 0) {
+            $query .= '&s=' . $size_on_comment;
         }
 
-        if ($settings->default != '') {
-            $query .= '&d=' . $settings->default;
+        if ($default !== '') {
+            $query .= '&d=' . $default;
         }
 
-        if ($settings->rating != '') {
-            $query .= '&r=' . $settings->rating;
+        if ($rating !== '') {
+            $query .= '&r=' . $rating;
         }
 
         if ($query !== '') {

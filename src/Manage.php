@@ -73,48 +73,46 @@ class Manage
         }
 
         if ($_POST !== []) {
+            // Post data helpers
+            $_Bool = fn (string $name): bool => !empty($_POST[$name]);
+            $_Int  = fn (string $name, int $default = 0): int => isset($_POST[$name]) && is_numeric($val = $_POST[$name]) ? (int) $val : $default;
+            $_Str  = fn (string $name, string $default = ''): string => isset($_POST[$name]) && is_string($val = $_POST[$name]) ? $val : $default;
+
             try {
-                $gv_active     = (bool) $settings->active;
-                $gv_on_post    = (bool) $settings->on_post;
-                $gv_on_comment = (bool) $settings->on_comment;
+                $active     = (bool) $settings->active;
+                $on_post    = (bool) $settings->on_post;
+                $on_comment = (bool) $settings->on_comment;
 
-                $new_cache = false;
-                if ((isset($_POST['gv_active'])) && ($gv_active !== (bool) $_POST['gv_active'])) {
-                    $new_cache = true;
-                } elseif ((isset($_POST['gv_on_post'])) && ($gv_on_post !== (bool) $_POST['gv_on_post'])) {
-                    $new_cache = true;
-                } elseif ((isset($_POST['gv_on_comment'])) && ($gv_on_comment = (bool) $_POST['gv_on_comment'])) {
-                    $new_cache = true;
-                }
+                $new_cache = ($active !== $_Bool('gv_active') || $on_post !== $_Bool('gv_on_post') || $on_comment !== $_Bool('gv_on_comment'));
 
-                $gv_active          = !empty($_POST['gv_active']);
-                $gv_libravatar      = !empty($_POST['gv_libravatar']);
-                $gv_on_post         = !empty($_POST['gv_on_post']);
-                $gv_on_comment      = !empty($_POST['gv_on_comment']);
-                $gv_size_on_post    = (int) $_POST['gv_size_on_post'];
-                $gv_size_on_comment = (int) $_POST['gv_size_on_comment'];
-                $gv_default         = $_POST['gv_default'];
-                $gv_rating          = $_POST['gv_rating'];
-                $gv_style           = trim((string) $_POST['gv_style']);
+                $active          = $_Bool('gv_active');
+                $libravatar      = $_Bool('gv_libravatar');
+                $on_post         = $_Bool('gv_on_post');
+                $on_comment      = $_Bool('gv_on_comment');
+                $size_on_post    = $_Int('gv_size_on_post');
+                $size_on_comment = $_Int('gv_size_on_comment');
+                $default         = $_Str('gv_default');
+                $rating          = $_Str('gv_rating');
+                $style           = trim($_Str('gv_style'));
 
-                if (($gv_size_on_post < 0) || ($gv_size_on_post > 512)) {
+                if (($size_on_post < 0) || ($size_on_post > 512)) {
                     throw new Exception(__('The size must be between 1 and 512 pixels.'));
                 }
 
-                if (($gv_size_on_comment < 0) || ($gv_size_on_comment > 512)) {
+                if (($size_on_comment < 0) || ($size_on_comment > 512)) {
                     throw new Exception(__('The size must be between 1 and 512 pixels.'));
                 }
 
                 # Everything's fine, save options
-                $settings->put('active', $gv_active, App::blogWorkspace()::NS_BOOL);
-                $settings->put('libravatar', $gv_libravatar, App::blogWorkspace()::NS_BOOL);
-                $settings->put('on_post', $gv_on_post, App::blogWorkspace()::NS_BOOL);
-                $settings->put('on_comment', $gv_on_comment, App::blogWorkspace()::NS_BOOL);
-                $settings->put('size_on_post', $gv_size_on_post, App::blogWorkspace()::NS_INT);
-                $settings->put('size_on_comment', $gv_size_on_comment, App::blogWorkspace()::NS_INT);
-                $settings->put('default', $gv_default, App::blogWorkspace()::NS_STRING);
-                $settings->put('rating', $gv_rating, App::blogWorkspace()::NS_STRING);
-                $settings->put('style', $gv_style, App::blogWorkspace()::NS_STRING);
+                $settings->put('active', $active, App::blogWorkspace()::NS_BOOL);
+                $settings->put('libravatar', $libravatar, App::blogWorkspace()::NS_BOOL);
+                $settings->put('on_post', $on_post, App::blogWorkspace()::NS_BOOL);
+                $settings->put('on_comment', $on_comment, App::blogWorkspace()::NS_BOOL);
+                $settings->put('size_on_post', $size_on_post, App::blogWorkspace()::NS_INT);
+                $settings->put('size_on_comment', $size_on_comment, App::blogWorkspace()::NS_INT);
+                $settings->put('default', $default, App::blogWorkspace()::NS_STRING);
+                $settings->put('rating', $rating, App::blogWorkspace()::NS_STRING);
+                $settings->put('style', $style, App::blogWorkspace()::NS_STRING);
 
                 if ($new_cache) {
                     App::cache()->emptyTemplatesCache();
@@ -141,19 +139,24 @@ class Manage
             return;
         }
 
+        // Variable data helpers
+        $_Bool = fn (mixed $var): bool => (bool) $var;
+        $_Int  = fn (mixed $var, int $default = 0): int => $var !== null && is_numeric($val = $var) ? (int) $val : $default;
+        $_Str  = fn (mixed $var, string $default = ''): string => $var !== null && is_string($val = $var) ? $val : $default;
+
         $settings = My::settings();
 
-        $gv_active          = (bool) $settings->active;
-        $gv_libravatar      = (bool) $settings->libravatar;
-        $gv_on_post         = (bool) $settings->on_post;
-        $gv_on_comment      = (bool) $settings->on_comment;
-        $gv_size_on_post    = (int) $settings->size_on_post;
-        $gv_size_on_comment = (int) $settings->size_on_comment;
-        $gv_default         = $settings->default;
-        $gv_rating          = $settings->rating;
-        $gv_style           = $settings->style;
+        $active          = $_Bool($settings->active);
+        $libravatar      = $_Bool($settings->libravatar);
+        $on_post         = $_Bool($settings->on_post);
+        $on_comment      = $_Bool($settings->on_comment);
+        $size_on_post    = $_Int($settings->size_on_post);
+        $size_on_comment = $_Int($settings->size_on_comment);
+        $default         = $_Str($settings->default);
+        $rating          = $_Str($settings->rating);
+        $style           = $_Str($settings->style);
 
-        $gv_defaults = [
+        $defaults = [
             __('Default')   => '',
             __('mm')        => 'mm',
             __('identicon') => 'identicon',
@@ -162,7 +165,7 @@ class Manage
             __('retro')     => 'retro',
         ];
 
-        $gv_ratings = [
+        $ratings = [
             __('Default') => '',
             __('G')       => 'g',
             __('PG')      => 'pg',
@@ -170,16 +173,16 @@ class Manage
             __('X')       => 'x',
         ];
 
-        $gv_url_test = ($gv_libravatar ?
+        $url_test = ($libravatar ?
             'https://seccdn.libravatar.org/avatar/%s' :
             'https://secure.gravatar.com/avatar/%s?f=y');
-        $gv_hash_test = ($gv_libravatar ?
+        $hash_test = ($libravatar ?
             '40f8d096a3777232204cb3f796c577b7' :
             '00000000000000000000000000000000');
 
-        $gv_url_test = sprintf($gv_url_test, $gv_hash_test);
-        if ($gv_default != '') {
-            $gv_url_test .= ($gv_libravatar ? '?' : '&') . 'd=' . $gv_default;
+        $url_test = sprintf($url_test, $hash_test);
+        if ($default !== '') {
+            $url_test .= ($libravatar ? '?' : '&') . 'd=' . $default;
         }
 
         App::backend()->page()->openModule(My::name());
@@ -200,55 +203,55 @@ class Manage
             ->method('post')
             ->fields([
                 (new Para())->items([
-                    (new Checkbox('gv_active', $gv_active))
+                    (new Checkbox('gv_active', $active))
                         ->value(1)
                         ->label((new Label(__('Active Gravatars'), Label::INSIDE_TEXT_AFTER))),
                 ]),
                 (new Text('h3', __('Options'))),
                 (new Para())->items([
-                    (new Checkbox('gv_libravatar', $gv_libravatar))
+                    (new Checkbox('gv_libravatar', $libravatar))
                         ->value(1)
                         ->label((new Label(__('Use Libravatar.org service instead of Gravatar.com'), Label::INSIDE_TEXT_AFTER))),
                 ]),
                 (new Para())->items([
-                    (new Checkbox('gv_on_post', $gv_on_post))
+                    (new Checkbox('gv_on_post', $on_post))
                         ->value(1)
                         ->label((new Label(__('Automatically insert Gravatars for posts'), Label::INSIDE_TEXT_AFTER))),
-                    (new Checkbox('gv_on_comment', $gv_on_comment))
+                    (new Checkbox('gv_on_comment', $on_comment))
                         ->value(1)
                         ->label((new Label(__('Automatically insert Gravatars for comments'), Label::INSIDE_TEXT_AFTER))),
                 ]),
                 (new Text('h3', __('Advanced options'))),
                 (new Para())->items([
-                    (new Number('gv_size_on_post', 1, 512, $gv_size_on_post))
+                    (new Number('gv_size_on_post', 1, 512, $size_on_post))
                         ->default(48)
                         ->label((new Label(__('Image size for post in pixels (1 to 512):'), Label::INSIDE_TEXT_BEFORE))),
                 ]),
                 (new Para())->items([
-                    (new Number('gv_size_on_comment', 1, 512, $gv_size_on_comment))
+                    (new Number('gv_size_on_comment', 1, 512, $size_on_comment))
                         ->default(48)
                         ->label((new Label(__('Image size for comment in pixels (1 to 512):'), Label::INSIDE_TEXT_BEFORE))),
                 ]),
                 (new Para())->items([
                     (new Select('gv_default'))
-                    ->items($gv_defaults)
-                    ->default($gv_default)
+                    ->items($defaults)
+                    ->default($default)
                     ->label((new Label(__('Default Gravatar imageset:'), Label::INSIDE_TEXT_BEFORE))),
                 ]),
                 (new Para())->items([
-                    (new Text(null, '<img src="' . $gv_url_test . '" alt="' . __('Default Gravatar image') . '" ' . '>')),
+                    (new Text(null, '<img src="' . $url_test . '" alt="' . __('Default Gravatar image') . '" ' . '>')),
                 ]),
                 (new Para())->items([
                     (new Select('gv_rating'))
-                    ->items($gv_ratings)
-                    ->default($gv_rating)
+                    ->items($ratings)
+                    ->default($rating)
                     ->label((new Label(__('Rating:'), Label::INSIDE_TEXT_BEFORE))),
                 ]),
                 (new Para())->items([
                     (new Textarea('gv_style'))
                         ->cols(72)
                         ->rows(25)
-                        ->value(Html::escapeHTML($gv_style))
+                        ->value(Html::escapeHTML($style))
                         ->class('maximal')
                         ->label((new Label(__('Gravatar images CSS style:'), Label::OUTSIDE_LABEL_BEFORE))),
                 ]),

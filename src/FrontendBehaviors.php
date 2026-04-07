@@ -68,7 +68,7 @@ class FrontendBehaviors
 
     protected static function getGravatarURLCommentCode(
     ): void {
-        if (!App::frontend()->context()->comments->comment_trackback) {
+        if (App::frontend()->context()->comments instanceof \Dotclear\Database\MetaRecord && !App::frontend()->context()->comments->comment_trackback) {
             echo (new \Dotclear\Helper\Html\Form\Img(\Dotclear\Plugin\gravatar\Helper::gravatarHelper(false)))
                 ->alt('')
                 ->class('gravatar')
