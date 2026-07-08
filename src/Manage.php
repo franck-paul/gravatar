@@ -52,7 +52,7 @@ class Manage
 
         $settings = My::settings();
 
-        if (is_null($settings->active)) {
+        if (is_null($settings->get('active'))) {
             try {
                 // Add default settings values if necessary
                 $settings->put('active', false, App::blogWorkspace()::NS_BOOL, 'Active', false);
@@ -79,9 +79,9 @@ class Manage
             $_Str  = fn (string $name, string $default = ''): string => isset($_POST[$name]) && is_string($val = $_POST[$name]) ? $val : $default;
 
             try {
-                $active     = (bool) $settings->active;
-                $on_post    = (bool) $settings->on_post;
-                $on_comment = (bool) $settings->on_comment;
+                $active     = $settings->getBool('active', false);
+                $on_post    = $settings->getBool('on_post', false);
+                $on_comment = $settings->getBool('on_comment', false);
 
                 $new_cache = ($active !== $_Bool('gv_active') || $on_post !== $_Bool('gv_on_post') || $on_comment !== $_Bool('gv_on_comment'));
 
@@ -139,22 +139,17 @@ class Manage
             return;
         }
 
-        // Variable data helpers
-        $_Bool = fn (mixed $var): bool => (bool) $var;
-        $_Int  = fn (mixed $var, int $default = 0): int => $var !== null && is_numeric($val = $var) ? (int) $val : $default;
-        $_Str  = fn (mixed $var, string $default = ''): string => $var !== null && is_string($val = $var) ? $val : $default;
-
         $settings = My::settings();
 
-        $active          = $_Bool($settings->active);
-        $libravatar      = $_Bool($settings->libravatar);
-        $on_post         = $_Bool($settings->on_post);
-        $on_comment      = $_Bool($settings->on_comment);
-        $size_on_post    = $_Int($settings->size_on_post);
-        $size_on_comment = $_Int($settings->size_on_comment);
-        $default         = $_Str($settings->default);
-        $rating          = $_Str($settings->rating);
-        $style           = $_Str($settings->style);
+        $active          = $settings->getBool('active', false);
+        $libravatar      = $settings->getBool('libravatar', false);
+        $on_post         = $settings->getBool('on_post', false);
+        $on_comment      = $settings->getBool('on_comment', false);
+        $size_on_post    = $settings->getInt('size_on_post', false);
+        $size_on_comment = $settings->getInt('size_on_comment', false);
+        $default         = $settings->getStr('default', false);
+        $rating          = $settings->getStr('rating', false);
+        $style           = $settings->getStr('style', false);
 
         $defaults = [
             __('Default')   => '',

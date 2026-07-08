@@ -24,7 +24,7 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        if ($settings->active) {
+        if ($settings->getBool('active')) {
             echo '<style type="text/css">' . "\n" . Helper::gravatarStyle() . "</style>\n";
         }
 
@@ -35,17 +35,17 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        if (!$settings->active) {
+        if (!$settings->getBool('active')) {
             return '';
         }
 
-        if (($v === 'EntryAuthorLink') && ($settings->on_post)) {
+        if ($v === 'EntryAuthorLink' && $settings->getBool('on_post')) {
             return Code::getPHPCode(
                 self::getGravatarURLPostCode(...)
             );
         }
 
-        if (($v === 'CommentAuthorLink') && ($settings->on_comment)) {
+        if ($v === 'CommentAuthorLink' && $settings->getBool('on_comment')) {
             return Code::getPHPCode(
                 self::getGravatarURLCommentCode(...)
             );

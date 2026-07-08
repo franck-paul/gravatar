@@ -25,7 +25,7 @@ class Helper
 
     public static function gravatarStyle(): string
     {
-        $style = is_string($style = My::settings()->style) ? $style : '';
+        $style = My::settings()->getStr('style', false);
         if ($style === '') {
             return '';
         }
@@ -40,10 +40,8 @@ class Helper
     {
         $settings = My::settings();
 
-        $_Int = fn (mixed $var, int $default = 0): int => $var !== null && is_numeric($val = $var) ? (int) $val : $default;
-
-        $size_on_post    = $_Int($settings->size_on_post);
-        $size_on_comment = $_Int($settings->size_on_comment);
+        $size_on_post    = $settings->getInt('size_on_post', false);
+        $size_on_comment = $settings->getInt('size_on_comment', false);
 
         $size = 80;
 
@@ -159,7 +157,7 @@ class Helper
         $email = $from_post ? $rs->getAuthorEmail(false) : $rs->getEmail(false);
         $email = is_string($email = filter_var($email, FILTER_VALIDATE_EMAIL)) ? $email : '';
 
-        if ($settings->libravatar) {
+        if ($settings->getBool('libravatar')) {
             if ($email === '') {
                 $parts  = explode('@', $email);
                 $domain = $parts[1];
@@ -177,16 +175,12 @@ class Helper
 
         $query = '';
 
-        // Variable data helpers
-        $_Int = fn (mixed $var, int $default = 0): int => $var !== null && is_numeric($val = $var) ? (int) $val : $default;
-        $_Str = fn (mixed $var, string $default = ''): string => $var !== null && is_string($val = $var) ? $val : $default;
-
         $settings = My::settings();
 
-        $size_on_post    = $_Int($settings->size_on_post);
-        $size_on_comment = $_Int($settings->size_on_comment);
-        $default         = $_Str($settings->default);
-        $rating          = $_Str($settings->rating);
+        $size_on_post    = $settings->getInt('size_on_post', false);
+        $size_on_comment = $settings->getInt('size_on_comment', false);
+        $default         = $settings->getStr('default', false);
+        $rating          = $settings->getStr('rating', false);
 
         if ($from_post && $size_on_post !== 0) {
             $query .= '&s=' . $size_on_post;
