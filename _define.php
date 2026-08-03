@@ -15,9 +15,9 @@ $this->registerModule(
     'Gravatar',
     'Add Gravatar/Libravatar images to your posts and comments authors',
     'Franck Paul',
-    '6.2',
+    '7.0',
     [
-        'date'     => '2026-04-07T13:09:20+0200',
+        'date'     => '2026-08-03T09:58:31+0200',
         'requires' => [
             ['core', '2.39'],
             ['TemplateHelper'],
