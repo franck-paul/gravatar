@@ -24,10 +24,7 @@ class BackendBehaviors
      */
     public static function adminPageHTTPHeaderCSP(ArrayObject $csp): string
     {
-        if (!isset($csp['img-src'])) {
-            $csp['img-src'] = '';
-        }
-
+        $csp['img-src'] ??= '';
         $csp['img-src'] .= ' https://i0.wp.com https://secure.gravatar.com https://seccdn.libravatar.org';
 
         return '';
