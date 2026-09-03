@@ -20,12 +20,12 @@ use ArrayObject;
 class BackendBehaviors
 {
     /**
-     * @param      ArrayObject<string, string>   $csp    The content security policies
+     * @param      ArrayObject<string, string>   $arrayObject    The content security policies
      */
-    public static function adminPageHTTPHeaderCSP(ArrayObject $csp): string
+    public static function adminPageHTTPHeaderCSP(ArrayObject $arrayObject): string
     {
-        $csp['img-src'] ??= '';
-        $csp['img-src'] .= ' https://i0.wp.com https://secure.gravatar.com https://seccdn.libravatar.org';
+        $arrayObject['img-src'] ??= '';
+        $arrayObject['img-src'] .= ' https://i0.wp.com https://secure.gravatar.com https://seccdn.libravatar.org';
 
         return '';
     }
