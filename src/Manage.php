@@ -19,6 +19,7 @@ use Dotclear\App;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Number;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Select;
@@ -197,68 +198,78 @@ class Manage
             ->action(App::backend()->getPageURL())
             ->method('post')
             ->fields([
-                (new Para())->items([
-                    (new Checkbox('gv_active', $active))
-                        ->value(1)
-                        ->label((new Label(__('Active Gravatars'), Label::INSIDE_TEXT_AFTER))),
-                ]),
+                (new Para())
+                    ->items([
+                        (new Checkbox('gv_active', $active))
+                            ->value(1)
+                            ->label((new Label(__('Active Gravatars'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
                 (new Text('h3', __('Options'))),
-                (new Para())->items([
-                    (new Checkbox('gv_libravatar', $libravatar))
-                        ->value(1)
-                        ->label((new Label(__('Use Libravatar.org service instead of Gravatar.com'), Label::INSIDE_TEXT_AFTER))),
-                ]),
-                (new Para())->items([
-                    (new Checkbox('gv_on_post', $on_post))
-                        ->value(1)
-                        ->label((new Label(__('Automatically insert Gravatars for posts'), Label::INSIDE_TEXT_AFTER))),
-                    (new Checkbox('gv_on_comment', $on_comment))
-                        ->value(1)
-                        ->label((new Label(__('Automatically insert Gravatars for comments'), Label::INSIDE_TEXT_AFTER))),
-                ]),
+                (new Para())
+                    ->items([
+                        (new Checkbox('gv_libravatar', $libravatar))
+                            ->value(1)
+                            ->label((new Label(__('Use Libravatar.org service instead of Gravatar.com'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
+                (new Para())
+                    ->items([
+                        (new Checkbox('gv_on_post', $on_post))
+                            ->value(1)
+                            ->label((new Label(__('Automatically insert Gravatars for posts'), Label::INSIDE_TEXT_AFTER))),
+                        (new Checkbox('gv_on_comment', $on_comment))
+                            ->value(1)
+                            ->label((new Label(__('Automatically insert Gravatars for comments'), Label::INSIDE_TEXT_AFTER))),
+                    ]),
                 (new Text('h3', __('Advanced options'))),
-                (new Para())->items([
-                    (new Number('gv_size_on_post', 1, 512, $size_on_post))
-                        ->default(48)
-                        ->label((new Label(__('Image size for post in pixels (1 to 512):'), Label::INSIDE_TEXT_BEFORE))),
-                ]),
-                (new Para())->items([
-                    (new Number('gv_size_on_comment', 1, 512, $size_on_comment))
-                        ->default(48)
-                        ->label((new Label(__('Image size for comment in pixels (1 to 512):'), Label::INSIDE_TEXT_BEFORE))),
-                ]),
-                (new Para())->items([
-                    (new Select('gv_default'))
-                    ->items($defaults)
-                    ->default($default)
-                    ->label((new Label(__('Default Gravatar imageset:'), Label::INSIDE_TEXT_BEFORE))),
-                ]),
-                (new Para())->items([
-                    (new Text(null, '<img src="' . $url_test . '" alt="' . __('Default Gravatar image') . '" ' . '>')),
-                ]),
-                (new Para())->items([
-                    (new Select('gv_rating'))
-                    ->items($ratings)
-                    ->default($rating)
-                    ->label((new Label(__('Rating:'), Label::INSIDE_TEXT_BEFORE))),
-                ]),
-                (new Para())->items([
-                    (new Textarea('gv_style'))
-                        ->cols(72)
-                        ->rows(25)
-                        ->value(Html::escapeHTML($style))
-                        ->class('maximal')
-                        ->label((new Label(__('Gravatar images CSS style:'), Label::OUTSIDE_LABEL_BEFORE))),
-                ]),
-                (new Para())->class('form-note')->items([
-                    (new Text(null, __('See <a href="https://en.gravatar.com/">Gravatar</a> or <a href="https://www.libravatar.org/">Libravatar</a> web sites for more information.'))),
-                ]),
+                (new Para())
+                    ->items([
+                        (new Number('gv_size_on_post', 1, 512, $size_on_post))
+                            ->default(48)
+                            ->label((new Label(__('Image size for post in pixels (1 to 512):'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                (new Para())
+                    ->items([
+                        (new Number('gv_size_on_comment', 1, 512, $size_on_comment))
+                            ->default(48)
+                            ->label((new Label(__('Image size for comment in pixels (1 to 512):'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                (new Para())
+                    ->items([
+                        (new Select('gv_default'))
+                        ->items($defaults)
+                        ->default($default)
+                        ->label((new Label(__('Default Gravatar imageset:'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                (new Para())
+                    ->items([
+                        (new Text(null, '<img src="' . $url_test . '" alt="' . __('Default Gravatar image') . '" ' . '>')),
+                    ]),
+                (new Para())
+                    ->items([
+                        (new Select('gv_rating'))
+                        ->items($ratings)
+                        ->default($rating)
+                        ->label((new Label(__('Rating:'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                (new Para())
+                    ->items([
+                        (new Textarea('gv_style'))
+                            ->cols(72)
+                            ->rows(25)
+                            ->value(Html::escapeHTML($style))
+                            ->class('maximal')
+                            ->label((new Label(__('Gravatar images CSS style:'), Label::OUTSIDE_LABEL_BEFORE))),
+                    ]),
+                (new Note())
+                    ->class('form-note')
+                    ->text(__('See <a href="https://en.gravatar.com/">Gravatar</a> or <a href="https://www.libravatar.org/">Libravatar</a> web sites for more information.')),
                 // Submit
-                (new Para())->items([
-                    (new Submit(['frmsubmit']))
-                        ->value(__('Save')),
-                    ...My::hiddenFields(),
-                ]),
+                (new Para())
+                    ->items([
+                        (new Submit(['frmsubmit']))
+                            ->value(__('Save')),
+                        ...My::hiddenFields(),
+                    ]),
             ])
         ->render();
 
