@@ -158,9 +158,9 @@ class Helper
         $email = is_string($email = filter_var($email, FILTER_VALIDATE_EMAIL)) ? $email : '';
 
         if ($settings->getBool('libravatar')) {
-            if ($email === '') {
+            if ($email !== '') {
                 $parts  = explode('@', $email);
-                $domain = $parts[1];
+                $domain = $parts[1] ?? null;
             } else {
                 $domain = null;
             }
