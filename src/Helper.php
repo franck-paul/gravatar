@@ -78,7 +78,7 @@ class Helper
             $port      = 80;
         }
 
-        if ($domain == null) {
+        if ($domain === null || $domain === '') {
             // No domain means invalid email address/openid
             return $fallback . 'libravatar.org';
         }
@@ -104,18 +104,22 @@ class Helper
         shuffle($srv);
         $srvs = [];
         foreach ($srv as $s) {
-            if ($s['weight'] == 0) {
+            $weight = isset($s['weight']) && is_numeric($weight = $s['weight']) ? (int) $weight : 0;
+            if ($weight === 0) {
                 array_unshift($srvs, $s);
             } else {
                 $srvs[] = $s;
             }
         }
 
-        $pri = [];
+        $pri    = [];
+        $toppri = isset($top['pri']) && is_numeric($toppri = $top['pri']) ? (int) $toppri : 0;
         foreach ($srvs as $s) {
-            if ($s['pri'] == $top['pri']) {
+            $srvpri = isset($s['pri']) && is_numeric($srvpri = $s['pri']) ? (int) $srvpri : 0;
+            if ($srvpri === $toppri) {
                 // "Compute the sum of the weights of those RRs"
-                $sum += (isset($s['weight']) && is_numeric($weigth = $s['weigth']) ? (int) $weigth : 0);
+                $weight = isset($s['weight']) && is_numeric($weight = $s['weight']) ? (int) $weight : 0;
+                $sum += $weight;
                 // "and with each RR associate the running sum in the selected
                 // order."
                 $pri[$sum] = $s;
