@@ -33,7 +33,9 @@ class FrontendTemplateCode
 
     public static function CommentAuthorGravatar(
     ): void {
-        if (App::frontend()->context()->comments instanceof \Dotclear\Database\MetaRecord && !App::frontend()->context()->comments->intField('comment_trackback')) {
+        if (App::frontend()->context()->comments instanceof \Dotclear\Database\MetaRecord
+            && App::frontend()->context()->comments->intField('comment_trackback') === 0
+        ) {
             echo (new \Dotclear\Helper\Html\Form\Img(\Dotclear\Plugin\gravatar\Helper::gravatarHelper(false)))
                 ->alt('')
                 ->class('gravatar')

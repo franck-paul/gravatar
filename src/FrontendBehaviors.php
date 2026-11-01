@@ -24,7 +24,7 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        if ($settings->getBool('active')) {
+        if ($settings->getBool('active', false)) {
             echo '<style type="text/css">' . "\n" . Helper::gravatarStyle() . "</style>\n";
         }
 
@@ -35,17 +35,17 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        if (!$settings->getBool('active')) {
+        if (!$settings->getBool('active', false)) {
             return '';
         }
 
-        if ($v === 'EntryAuthorLink' && $settings->getBool('on_post')) {
+        if ($v === 'EntryAuthorLink' && $settings->getBool('on_post', false)) {
             return Code::getPHPCode(
                 self::getGravatarURLPostCode(...)
             );
         }
 
-        if ($v === 'CommentAuthorLink' && $settings->getBool('on_comment')) {
+        if ($v === 'CommentAuthorLink' && $settings->getBool('on_comment', false)) {
             return Code::getPHPCode(
                 self::getGravatarURLCommentCode(...)
             );
@@ -68,7 +68,9 @@ class FrontendBehaviors
 
     protected static function getGravatarURLCommentCode(
     ): void {
-        if (App::frontend()->context()->comments instanceof \Dotclear\Database\MetaRecord && !App::frontend()->context()->comments->intField('comment_trackback')) {
+        if (App::frontend()->context()->comments instanceof \Dotclear\Database\MetaRecord
+            && App::frontend()->context()->comments->intField('comment_trackback') === 0
+        ) {
             echo (new \Dotclear\Helper\Html\Form\Img(\Dotclear\Plugin\gravatar\Helper::gravatarHelper(false)))
                 ->alt('')
                 ->class('gravatar')

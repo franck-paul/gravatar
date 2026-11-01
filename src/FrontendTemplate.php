@@ -25,7 +25,7 @@ class FrontendTemplate
     {
         $settings = My::settings();
 
-        if (!$settings->getBool('active')) {
+        if (!$settings->getBool('active', false)) {
             return '';
         }
 
@@ -38,7 +38,7 @@ class FrontendTemplate
     {
         $settings = My::settings();
 
-        if (!$settings->getBool('active')) {
+        if (!$settings->getBool('active', false)) {
             return '';
         }
 

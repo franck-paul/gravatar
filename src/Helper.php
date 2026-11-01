@@ -87,7 +87,7 @@ class Helper
         // and the domain we had passed in.
         $srv = @dns_get_record($subdomain . $domain, DNS_SRV);
         // Did we get anything? No?
-        if (!$srv) {
+        if ($srv === false) {
             // Then let's try Libravatar.org.
             return $fallback . 'libravatar.org';
         }
@@ -161,7 +161,7 @@ class Helper
         $email = $from_post ? $rs->getAuthorEmail(false) : $rs->getEmail(false);
         $email = is_string($email = filter_var($email, FILTER_VALIDATE_EMAIL)) ? $email : '';
 
-        if ($settings->getBool('libravatar')) {
+        if ($settings->getBool('libravatar', false)) {
             if ($email !== '') {
                 $parts  = explode('@', $email);
                 $domain = $parts[1] ?? null;
