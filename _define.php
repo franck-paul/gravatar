@@ -18,9 +18,9 @@ if (isset($this) && is_object($this) && method_exists($this, 'registerModule') &
         'Gravatar',
         'Add Gravatar/Libravatar images to your posts and comments authors',
         'Franck Paul',
-        '7.0.1',
+        '7.1',
         [
-            'date'     => '2026-09-27T08:54:54+0200',
+            'date'     => '2026-11-07T16:54:09+0100',
             'requires' => [
                 ['core', '2.39'],
                 ['TemplateHelper'],
